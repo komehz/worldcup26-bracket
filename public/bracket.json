@@ -48,8 +48,8 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "FRA",
           "kickoff": "2026-06-30T21:00:00Z",
           "feedsInto": null
         },
@@ -673,5 +673,5 @@
       ]
     }
   ],
-  "updated_at": "2026-06-30T22:45:14.856Z"
+  "updated_at": "2026-06-30T23:04:01.751Z"
 }
