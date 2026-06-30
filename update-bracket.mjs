@@ -93,17 +93,41 @@ function buildBracket(matches) {
     return { id: st.id, label: st.label, window: windowOf(built), matches: built };
   });
 
-  // feedsInto: link each finished match to the slot its winner now occupies in
-  // the next round (so the renderer can fly the winner inward along a beam).
-  for (let r = 1; r < rounds.length; r++) {
+  // Advancement. The provider sometimes marks a match final but is slow to place
+  // its winner in the next round, so we do it ourselves. Matches are sorted by
+  // id, and each adjacent pair (2k, 2k+1) are bracket siblings feeding one
+  // next-round tie. So once we know where one sibling goes (the provider placed
+  // it, or we did), the other goes to the empty slot of the same tie.
+  for (let r = 0; r < rounds.length - 1; r++) {
+    const here = rounds[r].matches, next = rounds[r + 1];
+
+    // 1. link any winner the provider has already seeded into the next round
     const slot = {};
-    rounds[r].matches.forEach((m) => {
+    next.matches.forEach((m) => {
       if (m.teamA.code) slot[m.teamA.code] = { match: m.id, slot: "A" };
       if (m.teamB.code) slot[m.teamB.code] = { match: m.id, slot: "B" };
     });
-    rounds[r - 1].matches.forEach((m) => {
-      const dst = m.status === "final" && m.winner && slot[m.winner];
-      if (dst) m.feedsInto = { round: rounds[r].id, match: dst.match, slot: dst.slot };
+    here.forEach((m) => {
+      if (m.status === "final" && m.winner && slot[m.winner])
+        m.feedsInto = { round: next.id, match: slot[m.winner].match, slot: slot[m.winner].slot };
+    });
+
+    // 2. complete the sibling: if one of a pair is linked, the other feeds the
+    //    same tie's other slot
+    for (let k = 0; k + 1 < here.length; k += 2) {
+      const a = here[k], b = here[k + 1];
+      if (a.feedsInto && !b.feedsInto && b.status === "final" && b.winner)
+        b.feedsInto = { round: a.feedsInto.round, match: a.feedsInto.match, slot: a.feedsInto.slot === "A" ? "B" : "A" };
+      else if (b.feedsInto && !a.feedsInto && a.status === "final" && a.winner)
+        a.feedsInto = { round: b.feedsInto.round, match: b.feedsInto.match, slot: b.feedsInto.slot === "A" ? "B" : "A" };
+    }
+
+    // 3. place every linked winner into its next-round slot
+    here.forEach((m) => {
+      if (m.status !== "final" || !m.winner || !m.feedsInto) return;
+      const tm = next.matches.find((x) => x.id === m.feedsInto.match);
+      const w = m.teamA.code === m.winner ? m.teamA : m.teamB;
+      if (tm) tm[m.feedsInto.slot === "B" ? "teamB" : "teamA"] = { name: w.name, code: w.code };
     });
   }
 

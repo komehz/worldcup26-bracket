@@ -51,7 +51,11 @@
           "status": "final",
           "winner": "FRA",
           "kickoff": "2026-06-30T21:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "m537375",
+            "slot": "B"
+          }
         },
         {
           "id": "m537417",
@@ -215,7 +219,11 @@
           "status": "final",
           "winner": "NOR",
           "kickoff": "2026-06-30T17:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "m537377",
+            "slot": "B"
+          }
         },
         {
           "id": "m537425",
@@ -345,9 +353,8 @@
             "code": "PAR"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "France",
+            "code": "FRA"
           },
           "scoreA": null,
           "scoreB": null,
@@ -384,9 +391,8 @@
             "code": "BRA"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Norway",
+            "code": "NOR"
           },
           "scoreA": null,
           "scoreB": null,
@@ -673,5 +679,5 @@
       ]
     }
   ],
-  "updated_at": "2026-06-30T23:04:01.751Z"
+  "updated_at": "2026-06-30T23:17:11.374Z"
 }
