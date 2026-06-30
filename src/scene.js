@@ -394,8 +394,19 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
         }
       });
 
+      // Candidate slots come from the Round-of-32 ring, which is evenly spaced
+      // and never re-seated. Each tie owns a contiguous block of R32 matches, so
+      // its slot is that block's centre. Deriving from R32 (rather than the
+      // immediate parent, whose index order no longer tracks its angular order
+      // after seeded ties are re-seated) keeps every inner round evenly spaced.
       const slots = [];
-      for (let k = 0; k < nr; k++) slots.push(circMean([prev[2 * k] ?? 0, prev[2 * k + 1] ?? 0]));
+      const group = nr > 0 && n0 % nr === 0 ? n0 / nr : 0;
+      for (let k = 0; k < nr; k++) {
+        if (!group) { slots.push((k / nr) * Math.PI * 2); continue; }
+        const seg = [];
+        for (let j = 0; j < group; j++) seg.push(centers[0][k * group + j]);
+        slots.push(circMean(seg));
+      }
       const want = here.map((_, mi) => (feeders[mi].length ? circMean(feeders[mi].map((o) => prev[o])) : null));
 
       const taken = new Array(nr).fill(false);
