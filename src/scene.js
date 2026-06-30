@@ -62,6 +62,17 @@ const slotRotY = (angle) => Math.PI / 2 - angle; // radial-outward face
 const posFromAngle = (r, a) =>
   new THREE.Vector3(Math.cos(a) * ringRadius(r), ringHeight(r), Math.sin(a) * ringRadius(r));
 
+// circular mean of angles, and shortest angular distance
+const circMean = (a) => {
+  let x = 0, y = 0;
+  for (const v of a) { x += Math.cos(v); y += Math.sin(v); }
+  return Math.atan2(y, x);
+};
+const angDist = (a, b) => {
+  const d = Math.abs(a - b) % (Math.PI * 2);
+  return Math.min(d, Math.PI * 2 - d);
+};
+
 const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const shortDate = (iso) => {
   if (!iso) return "";
@@ -359,28 +370,51 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
       round.matches.forEach((m, mi) => (matchIndexById[round.id][m.id] = mi));
     });
 
-    // Match-centre angles. Round of 32 is evenly spaced; every inner match sits
-    // at the midpoint of its two feeder matches, so it reads as "centred in the
-    // split" of the round outside it. This also lands the two semifinals on
-    // opposite sides of the ring for free.
+    // Match-centre angles. Round of 32 is evenly spaced. For each inner round we
+    // form candidate slots at the centre of every adjacent feeder pair (where a
+    // tie belongs), seat each tie whose feeders are known at its slot, then fill
+    // the leftover slots with the not-yet-seeded placeholder ties. That keeps a
+    // seeded tie centred between its feeders while never letting a placeholder
+    // land on top of it.
     const centers = rounds.map((round) => new Array(round.matches.length).fill(0));
     const n0 = rounds[0].matches.length;
     for (let k = 0; k < n0; k++) centers[0][k] = (k / n0) * Math.PI * 2;
 
     for (let r = 1; r < rounds.length; r++) {
-      const feeders = rounds[r].matches.map(() => []);
+      const prev = centers[r - 1];
+      const here = rounds[r].matches;
+      const nr = here.length;
+
+      const feeders = here.map(() => []);
       rounds[r - 1].matches.forEach((om, omi) => {
         const f = om.feedsInto;
         if (f && roundIndexById[f.round] === r) {
           const tm = matchIndexById[f.round][f.match];
-          if (tm != null) feeders[tm].push({ omi, slot: f.slot });
+          if (tm != null) feeders[tm].push(omi);
         }
       });
-      rounds[r].matches.forEach((_, mi) => {
-        const fs = feeders[mi];
-        centers[r][mi] = fs.length
-          ? fs.reduce((s, f) => s + centers[r - 1][f.omi], 0) / fs.length
-          : (mi / rounds[r].matches.length) * Math.PI * 2;
+
+      const slots = [];
+      for (let k = 0; k < nr; k++) slots.push(circMean([prev[2 * k] ?? 0, prev[2 * k + 1] ?? 0]));
+      const want = here.map((_, mi) => (feeders[mi].length ? circMean(feeders[mi].map((o) => prev[o])) : null));
+
+      const taken = new Array(nr).fill(false);
+      here.forEach((_, mi) => {
+        if (want[mi] == null) return;
+        let best = -1, bd = Infinity;
+        for (let s = 0; s < nr; s++) {
+          if (taken[s]) continue;
+          const d = angDist(slots[s], want[mi]);
+          if (d < bd) { bd = d; best = s; }
+        }
+        if (best >= 0) { taken[best] = true; centers[r][mi] = slots[best]; }
+      });
+      let s = 0;
+      here.forEach((_, mi) => {
+        if (want[mi] != null) return;
+        while (s < nr && taken[s]) s++;
+        taken[s] = true;
+        centers[r][mi] = slots[s];
       });
     }
     return { rounds, roundIndexById, matchIndexById, centers };
