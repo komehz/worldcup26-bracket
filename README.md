@@ -73,6 +73,27 @@ something changed:
 WATCH=30 API_FOOTBALL_KEY=… LEAGUE_ID=… SEASON=2026 npm run update-bracket
 ```
 
+## Deploy on Vercel (free) with live data
+
+The site is static, so a plain Vercel import works (set the framework preset to
+**Other**). Vercel can't run the always-on server or write files at runtime, so
+live data comes from a scheduled job instead — included at
+`.github/workflows/update-bracket.yml`:
+
+1. Push this repo to GitHub and import it into Vercel (auto-deploys on push).
+2. In the repo: **Settings → Secrets and variables → Actions**, add
+   `API_FOOTBALL_KEY`, `LEAGUE_ID`, `SEASON`.
+
+The Action then fetches results on a schedule, rewrites `public/bracket.json`
+only when something changed, and pushes — which triggers a Vercel redeploy. New
+scores appear within a few minutes (cron interval + deploy), all on free tiers.
+
+> The API-FOOTBALL free tier is ~100 requests/day, so the default 15-min
+> schedule is ~96/day. For fresher updates during matches, narrow the cron to
+> match hours (see the comment in the workflow). The seeded results are an
+> authored scenario — a real provider replaces them, so you may need to adjust
+> the team/`feedsInto` mapping to the actual draw.
+
 ## Project layout
 
 ```

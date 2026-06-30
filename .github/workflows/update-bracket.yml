@@ -1,0 +1,58 @@
+name: Update bracket
+
+# Free live-data path for a static Vercel deploy:
+# on a schedule, fetch the provider, rewrite public/bracket.json if anything
+# changed, and push. The push triggers Vercel's auto-deploy, so the site picks
+# up new scores within a few minutes — no server, no paid plan.
+#
+# Setup:
+#   1. Repo → Settings → Secrets and variables → Actions → add:
+#        API_FOOTBALL_KEY, LEAGUE_ID, SEASON
+#   2. Connect the repo to Vercel (auto-deploys on push to the default branch).
+#
+# Rate limits: each run makes ~1 provider request. The API-FOOTBALL free tier is
+# ~100 requests/day, so the every-15-min schedule below is ~96/day — just under.
+# For fresher updates during matches, narrow it to match hours instead, e.g.
+#   - cron: "*/5 14-23 * * *"
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-bracket
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch results + resolve advancement
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
+          SEASON: ${{ secrets.SEASON }}
+        run: node update-bracket.mjs
+
+      - name: Commit & push if bracket.json changed
+        run: |
+          if [ -n "$(git status --porcelain public/bracket.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/bracket.json
+            git commit -m "chore: update live bracket data"
+            git push
+            echo "pushed updated bracket.json"
+          else
+            echo "no change"
+          fi
