@@ -16,6 +16,10 @@ name: Update bracket
 # day that's ~24–48 requests/day, well under the free ~100/day tier, while
 # giving ~5-minute freshness during play. Idle ticks make zero API calls.
 # (Public-repo Actions minutes are free/unlimited; private repos get 2,000/mo.)
+#
+# Auto-stop: after the final (cutoff = 00:00 UTC the day after the latest
+# kickoff in bracket.json) the job disables this workflow, so it stops running
+# once the tournament is over. Re-enable it from the Actions tab if needed.
 
 on:
   schedule:
@@ -24,6 +28,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # lets the job disable itself after the final
 
 concurrency:
   group: update-bracket
@@ -35,11 +40,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Tournament window (auto-stop after the final)
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Cutoff = 00:00 UTC the day after the last kickoff in the data.
+          CUTOFF=$(node -e "const d=require('./public/bracket.json');const ks=d.rounds.flatMap(r=>r.matches).map(m=>m.kickoff).filter(Boolean).map(s=>Date.parse(s));const c=new Date(Math.max(...ks));console.log(Date.UTC(c.getUTCFullYear(),c.getUTCMonth(),c.getUTCDate()+1,0,0,0))")
+          NOW=$(date -u +%s%3N)
+          echo "now    = $(date -u)"
+          echo "cutoff = $(date -u -d @$((CUTOFF/1000)))"
+          if [ "$NOW" -ge "$CUTOFF" ]; then
+            echo "Tournament over — disabling this workflow."
+            gh workflow disable "${{ github.workflow }}" --repo "$GITHUB_REPOSITORY" \
+              || echo "(couldn't disable — the steps below are skipped anyway)"
+            echo "active=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "active=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-node@v4
+        if: steps.guard.outputs.active == 'true'
         with:
           node-version: 20
 
       - name: Fetch results + resolve advancement
+        if: steps.guard.outputs.active == 'true'
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
@@ -47,6 +73,7 @@ jobs:
         run: node update-bracket.mjs
 
       - name: Commit & push if bracket.json changed
+        if: steps.guard.outputs.active == 'true'
         run: |
           if [ -n "$(git status --porcelain public/bracket.json)" ]; then
             git config user.name "github-actions[bot]"
