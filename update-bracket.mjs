@@ -106,6 +106,59 @@ function resolveAdvancement(data) {
   }
 }
 
+// ---- 3. demo simulator (no API key needed) ---------------------------------
+// Drives the tournament on its own so the whole pipeline is visible end to end:
+// each tick it advances live matches (a goal, or full time), and when nothing is
+// live it kicks off the next scheduled tie. Combined with resolveAdvancement,
+// finished matches send their winner up a ring and grey out the loser — all in
+// the renderer, automatically. Reset anytime with `git checkout public/bracket.json`.
+function simulateTick(data) {
+  const matches = data.rounds.flatMap((r) => r.matches);
+  const live = matches.filter((m) => m.status === "live");
+  let changed = false;
+
+  if (live.length === 0) {
+    const next = matches
+      .filter((m) => m.status === "scheduled" && m.teamA?.code && m.teamB?.code && m.kickoff)
+      .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
+    if (next) {
+      next.status = "live";
+      next.scoreA = 0; next.scoreB = 0; next.penaltiesA = null; next.penaltiesB = null;
+      console.log(`  ▶ kickoff: ${next.teamA.name} v ${next.teamB.name}`);
+      changed = true;
+    }
+    return changed;
+  }
+
+  for (const m of live) {
+    const roll = Math.random();
+    if (roll < 0.4) {
+      // a goal
+      if (Math.random() < 0.5) m.scoreA++; else m.scoreB++;
+      changed = true;
+    } else if (roll < 0.72) {
+      // full time
+      m.status = "final";
+      if (m.scoreA === m.scoreB) {
+        // knockout can't draw — decide on penalties
+        const win = Math.random() < 0.5;
+        const hi = 3 + Math.floor(Math.random() * 3);
+        const lo = Math.max(0, hi - 1 - Math.floor(Math.random() * 2));
+        m.penaltiesA = win ? hi : lo;
+        m.penaltiesB = win ? lo : hi;
+        m.winner = m.penaltiesA > m.penaltiesB ? m.teamA.code : m.teamB.code;
+      } else {
+        m.winner = m.scoreA > m.scoreB ? m.teamA.code : m.teamB.code;
+      }
+      const wName = m.winner === m.teamA.code ? m.teamA.name : m.teamB.name;
+      console.log(`  ⏹ full time: ${m.teamA.name} ${m.scoreA}-${m.scoreB} ${m.teamB.name} → ${wName}`);
+      changed = true;
+    }
+    // otherwise: clock ticks, no event this tick
+  }
+  return changed;
+}
+
 // Compare ignoring updated_at, so we only rewrite (and only bump the timestamp)
 // when something real changed — that keeps the client's 304 fast-path working.
 const fingerprint = (o) => {
@@ -117,7 +170,9 @@ const fingerprint = (o) => {
 async function main() {
   const before = await readFile(FILE, "utf8");
   const data = JSON.parse(before);
-  const n = applyFixtures(data, await fetchFixtures());
+  let n = 0;
+  if (DEMO) simulateTick(data);
+  else n = applyFixtures(data, await fetchFixtures());
   resolveAdvancement(data);
 
   if (fingerprint(JSON.parse(before)) === fingerprint(data)) {
@@ -126,15 +181,22 @@ async function main() {
   }
   data.updated_at = new Date().toISOString();
   await writeFile(FILE, JSON.stringify(data, null, 2) + "\n");
-  console.log(`✓ bracket.json updated — ${n} match(es) from provider, advancement resolved.`);
+  console.log(DEMO ? "✓ bracket.json advanced (demo)" : `✓ bracket.json updated — ${n} match(es) from provider`);
   return true;
 }
 
-// `WATCH=30 npm run update-bracket` keeps the feed fresh on a self-rescheduling
-// loop (poll the provider every 30s); otherwise it runs once and exits.
-const WATCH = Number(process.env.WATCH || 0);
+// CLI: --demo / DEMO=1 drives it locally; --watch=N / WATCH=N loops every N s.
+const args = process.argv.slice(2);
+const flag = (name) => args.includes(`--${name}`);
+const optNum = (name, env) => {
+  const a = args.find((x) => x.startsWith(`--${name}=`));
+  return Number((a ? a.split("=")[1] : process.env[env]) || 0);
+};
+const DEMO = flag("demo") || Boolean(process.env.DEMO);
+const WATCH = optNum("watch", "WATCH");
+
 if (WATCH > 0) {
-  console.log(`watching — provider poll every ${WATCH}s (Ctrl+C to stop)`);
+  console.log(`watching${DEMO ? " (demo)" : ""} — tick every ${WATCH}s (Ctrl+C to stop)`);
   const tick = async () => {
     try { await main(); } catch (err) { console.error("update failed:", err.message); }
     setTimeout(tick, WATCH * 1000);

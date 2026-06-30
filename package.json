@@ -6,6 +6,7 @@
   "description": "Live, rotatable 3D knockout bracket for the 2026 World Cup (Three.js, no build step).",
   "scripts": {
     "start": "node serve.mjs",
+    "demo": "node update-bracket.mjs --demo --watch=8",
     "update-bracket": "node update-bracket.mjs"
   },
   "engines": {

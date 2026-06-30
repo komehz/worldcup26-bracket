@@ -40,17 +40,36 @@ static server works; `python -m http.server` is a fine substitute.
 
 ## Data & live updates
 
-The browser only ever does `fetch('public/bracket.json')`, but efficiently:
-adaptive cadence (faster while a match is live), conditional `ETag` requests
-(unchanged polls return a bodyless `304`), and it pauses while the tab is hidden.
+Everything flows from `public/bracket.json`. When it changes, finished matches
+automatically send their winner up a ring (along a drawn beam) and grey out the
+loser — the renderer just reacts.
 
-To keep the file fresh from a real provider, run the update job (key stays
-server-side):
+Updates reach the page two ways:
+
+- **Live push (instant)** — the dev server watches the file and sends a
+  server-sent event; the page refreshes in milliseconds (~200 ms measured).
+- **Polling fallback** — for static hosts with no server: conditional `ETag`
+  requests (unchanged polls return a bodyless `304`), faster while a match is
+  live, paused while the tab is hidden.
+
+### See it run itself
 
 ```bash
-# one-off; resolves winners into the next round even with no key
-npm run update-bracket
-# self-rescheduling loop against a provider (e.g. API-FOOTBALL)
+npm start        # terminal 1 — server with live push
+npm run demo     # terminal 2 — simulates the tournament: matches kick off,
+                 # score, finish, winners advance, losers fade. All automatic.
+```
+
+`npm run demo` needs no API key (reset anytime with
+`git checkout public/bracket.json`).
+
+### Real data
+
+Point the update job at a provider (key stays server-side); it stamps live
+scores, marks finals, and resolves advancement — only rewriting the file when
+something changed:
+
+```bash
 WATCH=30 API_FOOTBALL_KEY=… LEAGUE_ID=… SEASON=2026 npm run update-bracket
 ```
 
@@ -59,13 +78,13 @@ WATCH=30 API_FOOTBALL_KEY=… LEAGUE_ID=… SEASON=2026 npm run update-bracket
 ```
 index.html            import map + chrome
 src/scene.js          3D rings, lighting, trophy, interaction, animations
-src/bracket.js        adaptive, conditional polling of bracket.json
+src/bracket.js        live push (SSE) + conditional polling of bracket.json
 src/ui.js             header, round rail, side panel, theme toggle
 src/main.js           wiring
 src/flags.js          FIFA code → flag mapping
 public/bracket.json   the single source of truth
-serve.mjs             dev server (with ETag/304)
-update-bracket.mjs    fetches a provider + resolves advancement
+serve.mjs             dev server (ETag/304 + SSE push)
+update-bracket.mjs    provider fetch / demo simulator + resolves advancement
 ```
 
 ## Notes
