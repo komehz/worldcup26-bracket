@@ -1,0 +1,322 @@
+{
+  "updated_at": "2026-06-30T12:00:00Z",
+  "tournament": "World Cup 26 — Knockout",
+  "hosts": ["USA", "CAN", "MEX"],
+  "note": "Bracket topology traced from the official radial draw: R32 ties are listed clockwise and pair adjacently inward (e.g. Morocco/Netherlands + Canada/South Africa -> one R16 tie). feedsInto encodes that tree.",
+  "rounds": [
+    {
+      "id": "R32",
+      "label": "Round of 32",
+      "window": "28 Jun – 3 Jul",
+      "matches": [
+        {
+          "id": "m1",
+          "teamA": { "name": "Brazil", "code": "BRA" },
+          "teamB": { "name": "Japan", "code": "JPN" },
+          "scoreA": 2, "scoreB": 1, "penaltiesA": null, "penaltiesB": null,
+          "status": "final", "winner": "BRA",
+          "kickoff": "2026-06-29T23:00:00Z", "venue": "Mexico City",
+          "feedsInto": { "round": "R16", "match": "m1", "slot": "A" }
+        },
+        {
+          "id": "m2",
+          "teamA": { "name": "Ivory Coast", "code": "CIV" },
+          "teamB": { "name": "Norway", "code": "NOR" },
+          "scoreA": 0, "scoreB": 1, "penaltiesA": null, "penaltiesB": null,
+          "status": "live", "winner": null,
+          "kickoff": "2026-06-30T16:00:00Z", "venue": "Houston",
+          "feedsInto": { "round": "R16", "match": "m1", "slot": "B" }
+        },
+        {
+          "id": "m3",
+          "teamA": { "name": "Mexico", "code": "MEX" },
+          "teamB": { "name": "Ecuador", "code": "ECU" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-06-30T23:00:00Z", "venue": "Guadalajara",
+          "feedsInto": { "round": "R16", "match": "m2", "slot": "A" }
+        },
+        {
+          "id": "m4",
+          "teamA": { "name": "England", "code": "ENG" },
+          "teamB": { "name": "Congo DR", "code": "COD" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-01T16:00:00Z", "venue": "Philadelphia",
+          "feedsInto": { "round": "R16", "match": "m2", "slot": "B" }
+        },
+        {
+          "id": "m5",
+          "teamA": { "name": "Argentina", "code": "ARG" },
+          "teamB": { "name": "Cape Verde", "code": "CPV" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-03T16:00:00Z", "venue": "East Rutherford",
+          "feedsInto": { "round": "R16", "match": "m3", "slot": "A" }
+        },
+        {
+          "id": "m6",
+          "teamA": { "name": "Australia", "code": "AUS" },
+          "teamB": { "name": "Egypt", "code": "EGY" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-03T20:00:00Z", "venue": "Vancouver",
+          "feedsInto": { "round": "R16", "match": "m3", "slot": "B" }
+        },
+        {
+          "id": "m7",
+          "teamA": { "name": "Switzerland", "code": "SUI" },
+          "teamB": { "name": "Algeria", "code": "ALG" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-02T23:00:00Z", "venue": "San Francisco Bay",
+          "feedsInto": { "round": "R16", "match": "m4", "slot": "A" }
+        },
+        {
+          "id": "m8",
+          "teamA": { "name": "Colombia", "code": "COL" },
+          "teamB": { "name": "Ghana", "code": "GHA" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-03T23:00:00Z", "venue": "Monterrey",
+          "feedsInto": { "round": "R16", "match": "m4", "slot": "B" }
+        },
+        {
+          "id": "m9",
+          "teamA": { "name": "Belgium", "code": "BEL" },
+          "teamB": { "name": "Senegal", "code": "SEN" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-01T20:00:00Z", "venue": "Atlanta",
+          "feedsInto": { "round": "R16", "match": "m5", "slot": "A" }
+        },
+        {
+          "id": "m10",
+          "teamA": { "name": "USA", "code": "USA" },
+          "teamB": { "name": "Bosnia and Herzegovina", "code": "BIH" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-01T23:00:00Z", "venue": "Seattle",
+          "feedsInto": { "round": "R16", "match": "m5", "slot": "B" }
+        },
+        {
+          "id": "m11",
+          "teamA": { "name": "Spain", "code": "ESP" },
+          "teamB": { "name": "Austria", "code": "AUT" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-02T16:00:00Z", "venue": "Miami Gardens",
+          "feedsInto": { "round": "R16", "match": "m6", "slot": "A" }
+        },
+        {
+          "id": "m12",
+          "teamA": { "name": "Portugal", "code": "POR" },
+          "teamB": { "name": "Croatia", "code": "CRO" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-02T20:00:00Z", "venue": "Kansas City",
+          "feedsInto": { "round": "R16", "match": "m6", "slot": "B" }
+        },
+        {
+          "id": "m13",
+          "teamA": { "name": "Morocco", "code": "MAR" },
+          "teamB": { "name": "Netherlands", "code": "NED" },
+          "scoreA": 1, "scoreB": 1, "penaltiesA": 3, "penaltiesB": 2,
+          "status": "final", "winner": "MAR",
+          "kickoff": "2026-06-29T19:00:00Z", "venue": "Boston",
+          "feedsInto": { "round": "R16", "match": "m7", "slot": "A" }
+        },
+        {
+          "id": "m14",
+          "teamA": { "name": "Canada", "code": "CAN" },
+          "teamB": { "name": "South Africa", "code": "RSA" },
+          "scoreA": 1, "scoreB": 0, "penaltiesA": null, "penaltiesB": null,
+          "status": "final", "winner": "CAN",
+          "kickoff": "2026-06-28T19:00:00Z", "venue": "Toronto",
+          "feedsInto": { "round": "R16", "match": "m7", "slot": "B" }
+        },
+        {
+          "id": "m15",
+          "teamA": { "name": "France", "code": "FRA" },
+          "teamB": { "name": "Sweden", "code": "SWE" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-06-30T20:00:00Z", "venue": "Dallas",
+          "feedsInto": { "round": "R16", "match": "m8", "slot": "A" }
+        },
+        {
+          "id": "m16",
+          "teamA": { "name": "Paraguay", "code": "PAR" },
+          "teamB": { "name": "Germany", "code": "GER" },
+          "scoreA": 1, "scoreB": 1, "penaltiesA": 4, "penaltiesB": 3,
+          "status": "final", "winner": "PAR",
+          "kickoff": "2026-06-28T23:00:00Z", "venue": "Los Angeles",
+          "feedsInto": { "round": "R16", "match": "m8", "slot": "B" }
+        }
+      ]
+    },
+    {
+      "id": "R16",
+      "label": "Round of 16",
+      "window": "4 – 7 Jul",
+      "matches": [
+        {
+          "id": "m1",
+          "teamA": { "name": "Brazil", "code": "BRA" },
+          "teamB": { "name": "Winner R32 M2", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-04T19:00:00Z", "venue": "Mexico City",
+          "feedsInto": { "round": "QF", "match": "m1", "slot": "A" }
+        },
+        {
+          "id": "m2",
+          "teamA": { "name": "Winner R32 M3", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R32 M4", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-04T23:00:00Z", "venue": "Philadelphia",
+          "feedsInto": { "round": "QF", "match": "m1", "slot": "B" }
+        },
+        {
+          "id": "m3",
+          "teamA": { "name": "Winner R32 M5", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R32 M6", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-05T19:00:00Z", "venue": "East Rutherford",
+          "feedsInto": { "round": "QF", "match": "m2", "slot": "A" }
+        },
+        {
+          "id": "m4",
+          "teamA": { "name": "Winner R32 M7", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R32 M8", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-05T23:00:00Z", "venue": "San Francisco Bay",
+          "feedsInto": { "round": "QF", "match": "m2", "slot": "B" }
+        },
+        {
+          "id": "m5",
+          "teamA": { "name": "Winner R32 M9", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R32 M10", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-06T19:00:00Z", "venue": "Atlanta",
+          "feedsInto": { "round": "QF", "match": "m3", "slot": "A" }
+        },
+        {
+          "id": "m6",
+          "teamA": { "name": "Winner R32 M11", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R32 M12", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-06T23:00:00Z", "venue": "Miami Gardens",
+          "feedsInto": { "round": "QF", "match": "m3", "slot": "B" }
+        },
+        {
+          "id": "m7",
+          "teamA": { "name": "Morocco", "code": "MAR" },
+          "teamB": { "name": "Canada", "code": "CAN" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-07T19:00:00Z", "venue": "Toronto",
+          "feedsInto": { "round": "QF", "match": "m4", "slot": "A" }
+        },
+        {
+          "id": "m8",
+          "teamA": { "name": "Winner R32 M15", "code": null, "placeholder": true },
+          "teamB": { "name": "Paraguay", "code": "PAR" },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-07T23:00:00Z", "venue": "Dallas",
+          "feedsInto": { "round": "QF", "match": "m4", "slot": "B" }
+        }
+      ]
+    },
+    {
+      "id": "QF",
+      "label": "Quarterfinals",
+      "window": "14 – 15 Jul",
+      "matches": [
+        {
+          "id": "m1",
+          "teamA": { "name": "Winner R16 M1", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R16 M2", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-14T19:00:00Z", "venue": "Los Angeles",
+          "feedsInto": { "round": "SF", "match": "m1", "slot": "A" }
+        },
+        {
+          "id": "m2",
+          "teamA": { "name": "Winner R16 M3", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R16 M4", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-14T23:00:00Z", "venue": "Kansas City",
+          "feedsInto": { "round": "SF", "match": "m1", "slot": "B" }
+        },
+        {
+          "id": "m3",
+          "teamA": { "name": "Winner R16 M5", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R16 M6", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-15T19:00:00Z", "venue": "Miami Gardens",
+          "feedsInto": { "round": "SF", "match": "m2", "slot": "A" }
+        },
+        {
+          "id": "m4",
+          "teamA": { "name": "Winner R16 M7", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner R16 M8", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-15T23:00:00Z", "venue": "Boston",
+          "feedsInto": { "round": "SF", "match": "m2", "slot": "B" }
+        }
+      ]
+    },
+    {
+      "id": "SF",
+      "label": "Semifinals",
+      "window": "17 – 18 Jul",
+      "matches": [
+        {
+          "id": "m1",
+          "teamA": { "name": "Winner QF M1", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner QF M2", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-17T23:00:00Z", "venue": "Dallas",
+          "feedsInto": { "round": "FINAL", "match": "m1", "slot": "A" }
+        },
+        {
+          "id": "m2",
+          "teamA": { "name": "Winner QF M3", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner QF M4", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-18T23:00:00Z", "venue": "Atlanta",
+          "feedsInto": { "round": "FINAL", "match": "m1", "slot": "B" }
+        }
+      ]
+    },
+    {
+      "id": "FINAL",
+      "label": "Final",
+      "window": "19 Jul",
+      "matches": [
+        {
+          "id": "m1",
+          "teamA": { "name": "Winner SF M1", "code": null, "placeholder": true },
+          "teamB": { "name": "Winner SF M2", "code": null, "placeholder": true },
+          "scoreA": null, "scoreB": null, "penaltiesA": null, "penaltiesB": null,
+          "status": "scheduled", "winner": null,
+          "kickoff": "2026-07-19T19:00:00Z", "venue": "East Rutherford, NJ",
+          "feedsInto": null
+        }
+      ]
+    }
+  ]
+}

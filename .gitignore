@@ -1,0 +1,19 @@
+# dependencies (this project has none at runtime; only a dev tool may add these)
+node_modules/
+package-lock.json
+
+# logs / env
+*.log
+.env
+.env.*
+
+# os / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# local screenshots / scratch
+shot.png
+shot*.mjs
+*.tmp

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>World Cup 26 — 3D Knockout Bracket</title>
+  <meta name="description" content="A live, rotatable 3D knockout bracket for the 2026 World Cup. Spin five concentric rings of national flags converging on the trophy, with teams advancing along gold beams as results come in. Built with Three.js." />
+  <meta name="author" content="World Cup 26 Bracket" />
+  <meta name="keywords" content="World Cup 2026, knockout bracket, 3D bracket, Three.js, WebGL, football, soccer, tournament visualization" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#ece9e1" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)" />
+
+  <!-- Social cards. Set og:url and an absolute og:image URL once you have a domain. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="World Cup 26 — 3D Knockout Bracket" />
+  <meta property="og:description" content="A live, rotatable 3D knockout bracket for the 2026 World Cup, built with Three.js." />
+  <meta property="og:image" content="assets/preview.png" />
+  <meta property="og:image:width" content="951" />
+  <meta property="og:image:height" content="585" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="World Cup 26 — 3D Knockout Bracket" />
+  <meta name="twitter:description" content="A live, rotatable 3D knockout bracket for the 2026 World Cup, built with Three.js." />
+  <meta name="twitter:image" content="assets/preview.png" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0c'/%3E%3Cpolygon points='16,5 22,16 16,27 10,16' fill='%23d4af6a'/%3E%3C/svg%3E" />
+  <link rel="canonical" href="./" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://flagcdn.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="src/style.css" />
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 3D layer -->
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <!-- Loading state: typography only, no spinner -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader__mark">
+      <span class="loader__cup">World&nbsp;Cup</span>
+      <span class="loader__year">26</span>
+    </div>
+    <div class="loader__msg">Loading bracket</div>
+  </div>
+
+  <!-- Quiet chrome -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__eyebrow">Knockout Bracket</span>
+      <h1 class="brand__mark"><span>World&nbsp;Cup</span><b>26</b></h1>
+      <span class="brand__hosts">USA · CAN · MEX</span>
+    </div>
+    <div class="status" id="status">
+      <span class="status__count" id="statusCount">—</span>
+      <span class="status__updated" id="statusUpdated"></span>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+        <span class="theme-toggle__label">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Round selector: outer ring at top, trophy at the bottom -->
+  <nav class="rail" id="rail" aria-label="Jump to round">
+    <span class="rail__axis">Rim</span>
+    <!-- buttons injected by ui.js -->
+    <span class="rail__axis">Core</span>
+  </nav>
+
+  <!-- Match detail -->
+  <aside class="panel" id="panel" aria-live="polite" hidden>
+    <!-- contents injected by ui.js -->
+  </aside>
+
+  <!-- Legend -->
+  <footer class="legend" id="legend">
+    <span class="legend__item"><i class="dot dot--live"></i>Live</span>
+    <span class="legend__item"><i class="dot dot--final"></i>Final</span>
+    <span class="legend__item"><i class="dot dot--upcoming"></i>Upcoming</span>
+    <span class="legend__item"><i class="dot dot--out"></i>Eliminated</span>
+    <span class="legend__hint">Drag to rotate · scroll to spin · click a card</span>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

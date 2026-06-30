@@ -1,0 +1,14 @@
+{
+  "name": "worldcup-26-bracket",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live, rotatable 3D knockout bracket for the 2026 World Cup (Three.js, no build step).",
+  "scripts": {
+    "start": "node serve.mjs",
+    "update-bracket": "node update-bracket.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
