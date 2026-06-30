@@ -16,7 +16,7 @@ const fmtUpdated = (iso) => {
   return d.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 };
 
-export function createUI({ onFocusRound, onTheme } = {}) {
+export function createUI({ onFocusRound, onHighlightRound, onTheme } = {}) {
   const rail = document.getElementById("rail");
   const panel = document.getElementById("panel");
   const loader = document.getElementById("loader");
@@ -38,8 +38,10 @@ export function createUI({ onFocusRound, onTheme } = {}) {
       btn.innerHTML = `<span class="rail__name">${esc(round.label)}</span><span class="rail__meta">${esc(round.window || `${round.matches.length}×`)}</span>`;
       btn.addEventListener("click", () => {
         manualRound = manualRound === r ? null : r;
-        onFocusRound?.(manualRound); // dims other rings for inspection (or clears)
-        applyActive(manualRound != null ? manualRound : currentRound);
+        const active = manualRound != null ? manualRound : currentRound;
+        onFocusRound?.(manualRound);     // dims other rings for inspection (or clears)
+        onHighlightRound?.(active);      // moves the gold ring to the active round
+        applyActive(active);
       });
       rail.insertBefore(btn, bottomAxis); // sit between the Rim / Core labels
     });
@@ -63,7 +65,11 @@ export function createUI({ onFocusRound, onTheme } = {}) {
   function update(data) {
     buildRail(data.rounds);
     currentRound = currentRoundIndex(data);
-    if (manualRound == null) applyActive(currentRound);
+    // The active (gold-ring) round follows a manual pick, else the current round,
+    // so it auto-advances as rounds start and stays put where the user clicked.
+    const active = manualRound != null ? manualRound : currentRound;
+    applyActive(active);
+    onHighlightRound?.(active);
 
     const cur = data.rounds[currentRound];
     const played = cur.matches.filter((m) => m.status === "final").length;

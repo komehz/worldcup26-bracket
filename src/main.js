@@ -13,6 +13,7 @@ async function boot() {
 
   const ui = createUI({
     onFocusRound: (r) => scene.focusRound(r),
+    onHighlightRound: (r) => scene.setCurrentRound(r),
     onTheme: (t) => scene.setTheme(t),
   });
 
@@ -42,9 +43,8 @@ async function boot() {
   const source = createBracketSource();
   if (new URLSearchParams(location.search).has("debug")) window.__source = source;
   source.on("update", ({ data, newlyFinal, isFirst }) => {
-    const currentRound = ui.update(data);
     scene.setData(data, { newlyFinal, isFirst });
-    scene.setCurrentRound(currentRound);
+    ui.update(data); // drives the gold guide ring via onHighlightRound
   });
   source.on("error", (err) => {
     console.warn("bracket.json failed to load:", err);
