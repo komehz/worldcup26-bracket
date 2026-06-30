@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-30T12:00:00Z",
+  "updated_at": "2026-06-30T16:35:00Z",
   "tournament": "World Cup 26 — Knockout",
   "hosts": ["USA", "CAN", "MEX"],
   "note": "Bracket topology traced from the official radial draw: R32 ties are listed clockwise and pair adjacently inward (e.g. Morocco/Netherlands + Canada/South Africa -> one R16 tie). feedsInto encodes that tree.",
@@ -22,7 +22,7 @@
           "id": "m2",
           "teamA": { "name": "Ivory Coast", "code": "CIV" },
           "teamB": { "name": "Norway", "code": "NOR" },
-          "scoreA": 0, "scoreB": 1, "penaltiesA": null, "penaltiesB": null,
+          "scoreA": 1, "scoreB": 2, "penaltiesA": null, "penaltiesB": null,
           "status": "live", "winner": null,
           "kickoff": "2026-06-30T16:00:00Z", "venue": "Houston",
           "feedsInto": { "round": "R16", "match": "m1", "slot": "B" }
