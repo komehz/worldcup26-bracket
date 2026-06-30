@@ -38,7 +38,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Tournament window (auto-stop after the final)
         id: guard
@@ -59,10 +59,10 @@ jobs:
             echo "active=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.guard.outputs.active == 'true'
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Fetch results + resolve advancement
         if: steps.guard.outputs.active == 'true'
