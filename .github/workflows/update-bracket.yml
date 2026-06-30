@@ -10,14 +10,16 @@ name: Update bracket
 #        API_FOOTBALL_KEY, LEAGUE_ID, SEASON
 #   2. Connect the repo to Vercel (auto-deploys on push to the default branch).
 #
-# Rate limits: each run makes ~1 provider request. The API-FOOTBALL free tier is
-# ~100 requests/day, so the every-15-min schedule below is ~96/day — just under.
-# For fresher updates during matches, narrow it to match hours instead, e.g.
-#   - cron: "*/5 14-23 * * *"
+# Rate limits: update-bracket only calls the provider when a match is live or
+# about to kick off (see inMatchWindow in update-bracket.mjs). So this 5-minute
+# schedule spends API requests *only* during match windows — with 1–2 matches a
+# day that's ~24–48 requests/day, well under the free ~100/day tier, while
+# giving ~5-minute freshness during play. Idle ticks make zero API calls.
+# (Public-repo Actions minutes are free/unlimited; private repos get 2,000/mo.)
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch: {}
 
 permissions:

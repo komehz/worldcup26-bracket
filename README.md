@@ -88,11 +88,12 @@ The Action then fetches results on a schedule, rewrites `public/bracket.json`
 only when something changed, and pushes — which triggers a Vercel redeploy. New
 scores appear within a few minutes (cron interval + deploy), all on free tiers.
 
-> The API-FOOTBALL free tier is ~100 requests/day, so the default 15-min
-> schedule is ~96/day. For fresher updates during matches, narrow the cron to
-> match hours (see the comment in the workflow). The seeded results are an
-> authored scenario — a real provider replaces them, so you may need to adjust
-> the team/`feedsInto` mapping to the actual draw.
+> **API budget:** the job only calls the provider when a match is live or about
+> to start (`inMatchWindow` in `update-bracket.mjs`), so the 5-min schedule
+> spends requests *only* during games — ~24–48/day with 1–2 matches, well under
+> the free ~100/day tier — while idle ticks cost zero. The seeded results are an
+> authored scenario; a real provider replaces them, so you may need to align the
+> team/`feedsInto` mapping to the actual draw.
 
 ## Project layout
 

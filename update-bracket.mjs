@@ -159,6 +159,23 @@ function simulateTick(data) {
   return changed;
 }
 
+// Only spend a provider request when a match is actually in play or about to
+// start, so a free ~100 req/day key lasts: with 1–2 matches/day the API is hit
+// only during those windows, not every cron tick. Override the window with
+// PRE_MIN / POST_MIN env vars.
+function inMatchWindow(data) {
+  const now = Date.now();
+  const PRE = (Number(process.env.PRE_MIN) || 20) * 60_000;       // before kickoff
+  const POST = (Number(process.env.POST_MIN) || 150) * 60_000;    // after kickoff (90'+ET+pens)
+  return data.rounds.flatMap((r) => r.matches).some((m) => {
+    if (m.status === "final") return false;
+    if (m.status === "live") return true;
+    if (!m.kickoff) return false;
+    const dt = new Date(m.kickoff).getTime() - now;
+    return dt < PRE && dt > -POST;
+  });
+}
+
 // Compare ignoring updated_at, so we only rewrite (and only bump the timestamp)
 // when something real changed — that keeps the client's 304 fast-path working.
 const fingerprint = (o) => {
@@ -171,8 +188,13 @@ async function main() {
   const before = await readFile(FILE, "utf8");
   const data = JSON.parse(before);
   let n = 0;
-  if (DEMO) simulateTick(data);
-  else n = applyFixtures(data, await fetchFixtures());
+  if (DEMO) {
+    simulateTick(data);
+  } else if (inMatchWindow(data)) {
+    n = applyFixtures(data, await fetchFixtures());
+  } else {
+    console.log("· idle — no match in window, skipped provider call (0 API requests)");
+  }
   resolveAdvancement(data);
 
   if (fingerprint(JSON.parse(before)) === fingerprint(data)) {
