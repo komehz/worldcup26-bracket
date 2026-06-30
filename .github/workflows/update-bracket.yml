@@ -6,16 +6,15 @@ name: Update bracket
 # up new scores within a few minutes — no server, no paid plan.
 #
 # Setup:
-#   1. Repo → Settings → Secrets and variables → Actions → add:
-#        API_FOOTBALL_KEY, LEAGUE_ID, SEASON
+#   1. Repo, Settings, Secrets and variables, Actions: add FOOTBALL_DATA_TOKEN
+#      (a free token from football-data.org, whose free tier covers the WC).
 #   2. Connect the repo to Vercel (auto-deploys on push to the default branch).
 #
 # Rate limits: update-bracket only calls the provider when a match is live or
-# about to kick off (see inMatchWindow in update-bracket.mjs). So this 5-minute
-# schedule spends API requests *only* during match windows — with 1–2 matches a
-# day that's ~24–48 requests/day, well under the free ~100/day tier, while
-# giving ~5-minute freshness during play. Idle ticks make zero API calls.
-# (Public-repo Actions minutes are free/unlimited; private repos get 2,000/mo.)
+# about to kick off (see inMatchWindow in update-bracket.mjs), and the free tier
+# allows ~10 requests/minute, so the 5-minute schedule is comfortable while
+# giving roughly 5-minute freshness during play. Idle ticks make zero calls.
+# (Public-repo Actions minutes are free and unlimited; private repos get 2,000/mo.)
 #
 # Auto-stop: after the final (cutoff = 00:00 UTC the day after the latest
 # kickoff in bracket.json) the job disables this workflow, so it stops running
@@ -64,12 +63,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Fetch results + resolve advancement
+      - name: Rebuild bracket from football-data.org
         if: steps.guard.outputs.active == 'true'
         env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-          LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
-          SEASON: ${{ secrets.SEASON }}
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: node update-bracket.mjs
 
       - name: Commit & push if bracket.json changed

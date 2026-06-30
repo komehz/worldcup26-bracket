@@ -1,172 +1,155 @@
-// Rewrites public/bracket.json. Two jobs:
+// Rewrites public/bracket.json from football-data.org (free tier covers the
+// FIFA World Cup). It BUILDS the whole knockout bracket from the live fixtures:
+// teams, scores, status, kickoffs, and a feedsInto tree derived from who
+// actually advanced. The browser just reads the file.
 //
-//   1. (online)  Pull live fixtures from a provider and stamp scores/status
-//                onto the matching matches. The API key stays here, server side
-//                — the browser never sees it and only ever reads bracket.json.
-//   2. (always)  Resolve advancement: push every decided winner into the slot
-//                its `feedsInto` points at, so the inner rounds seed themselves.
-//
-// Run it on a schedule (cron / serverless) during match windows, or by hand:
-//
-//   API_FOOTBALL_KEY=xxx LEAGUE_ID=1 SEASON=2026 npm run update-bracket
-//   npm run update-bracket          # offline: just re-resolves advancement
+//   FOOTBALL_DATA_TOKEN=xxx npm run update-bracket     # one-off
+//   FOOTBALL_DATA_TOKEN=xxx WATCH=300 npm run update-bracket   # loop
+//   npm run demo                                       # offline simulation
 //
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const FILE = fileURLToPath(new URL("./public/bracket.json", import.meta.url));
+const API = "https://api.football-data.org/v4/competitions/WC/matches";
 
-// Provider team name -> FIFA code. Extend as needed for your data source.
-const ALIAS = {
-  Canada: "CAN", "South Africa": "RSA", Paraguay: "PAR", Germany: "GER",
-  Morocco: "MAR", Netherlands: "NED", Brazil: "BRA", Japan: "JPN",
-  "Ivory Coast": "CIV", "Côte d'Ivoire": "CIV", Norway: "NOR", France: "FRA",
-  Sweden: "SWE", Mexico: "MEX", Ecuador: "ECU", England: "ENG",
-  "Congo DR": "COD", "DR Congo": "COD", Belgium: "BEL", Senegal: "SEN",
-  USA: "USA", "United States": "USA", "Bosnia and Herzegovina": "BIH",
-  Spain: "ESP", Austria: "AUT", Portugal: "POR", Croatia: "CRO",
-  Switzerland: "SUI", Algeria: "ALG", Argentina: "ARG", "Cape Verde": "CPV",
-  Australia: "AUS", Egypt: "EGY", Colombia: "COL", Ghana: "GHA",
-};
+// football-data.org stage -> our round. Third-place match is intentionally left
+// out so the innermost ring shows just the two finalists.
+const STAGES = [
+  { fd: "LAST_32", id: "R32", label: "Round of 32" },
+  { fd: "LAST_16", id: "R16", label: "Round of 16" },
+  { fd: "QUARTER_FINALS", id: "QF", label: "Quarterfinals" },
+  { fd: "SEMI_FINALS", id: "SF", label: "Semifinals" },
+  { fd: "FINAL", id: "FINAL", label: "Final" },
+];
 
-function codeOf(name) {
-  return ALIAS[name] || null;
+const teamOf = (t) =>
+  t && t.name ? { name: t.name, code: t.tla || null } : { name: "To be decided", code: null, placeholder: true };
+
+const statusOf = (s) =>
+  ["IN_PLAY", "PAUSED"].includes(s) ? "live" : ["FINISHED", "AWARDED"].includes(s) ? "final" : "scheduled";
+
+// Goals before any shootout, with penalties kept separate.
+function scoreOf(score) {
+  if (!score) return { a: null, b: null, pa: null, pb: null };
+  if (score.penalties) {
+    const rt = score.regularTime || score.fullTime || {};
+    const et = score.extraTime || {};
+    return {
+      a: (rt.home ?? 0) + (et.home ?? 0),
+      b: (rt.away ?? 0) + (et.away ?? 0),
+      pa: score.penalties.home ?? null,
+      pb: score.penalties.away ?? null,
+    };
+  }
+  const ft = score.fullTime || {};
+  return { a: ft.home ?? null, b: ft.away ?? null, pa: null, pb: null };
 }
 
-// ---- 1. live fixtures (API-FOOTBALL shape; swap for your provider) ----------
-async function fetchFixtures() {
-  const key = process.env.API_FOOTBALL_KEY;
-  const league = process.env.LEAGUE_ID;
-  const season = process.env.SEASON || "2026";
-  if (!key || !league) {
-    console.log("• No API_FOOTBALL_KEY/LEAGUE_ID — skipping live fetch, resolving only.");
-    return null;
-  }
-  const url = `https://v3.football.api-sports.io/fixtures?league=${league}&season=${season}`;
-  const res = await fetch(url, { headers: { "x-apisports-key": key } });
+const fmtDay = (iso) => {
+  const d = new Date(iso);
+  return `${d.getUTCDate()} ${d.toLocaleString("en", { month: "short", timeZone: "UTC" })}`;
+};
+function windowOf(matches) {
+  const ds = matches.map((m) => m.kickoff).filter(Boolean).sort();
+  if (!ds.length) return "";
+  const a = fmtDay(ds[0]), b = fmtDay(ds[ds.length - 1]);
+  return a === b ? a : `${a} to ${b}`;
+}
+
+async function fetchMatches(token) {
+  const res = await fetch(API, { headers: { "X-Auth-Token": token } });
   if (!res.ok) throw new Error(`provider HTTP ${res.status}`);
   const json = await res.json();
-  return json.response || [];
+  return json.matches || [];
 }
 
-function applyFixtures(data, fixtures) {
-  if (!fixtures) return 0;
-  // index our matches by an unordered pair of codes
-  const byPair = new Map();
-  for (const round of data.rounds) {
-    for (const m of round.matches) {
-      const a = m.teamA?.code, b = m.teamB?.code;
-      if (a && b) byPair.set([a, b].sort().join("-"), m);
-    }
-  }
-  let touched = 0;
-  for (const fx of fixtures) {
-    const home = codeOf(fx.teams?.home?.name);
-    const away = codeOf(fx.teams?.away?.name);
-    if (!home || !away) continue;
-    const m = byPair.get([home, away].sort().join("-"));
-    if (!m) continue;
+function buildBracket(matches) {
+  const byStage = {};
+  for (const m of matches) (byStage[m.stage] ||= []).push(m);
 
-    const homeIsA = m.teamA.code === home;
-    const gh = fx.goals?.home ?? null;
-    const ga = fx.goals?.away ?? null;
-    m.scoreA = homeIsA ? gh : ga;
-    m.scoreB = homeIsA ? ga : gh;
+  const rounds = STAGES.map((st) => {
+    const list = (byStage[st.fd] || []).slice().sort((a, b) => a.id - b.id);
+    const built = list.map((m) => {
+      const A = teamOf(m.homeTeam), B = teamOf(m.awayTeam);
+      const status = statusOf(m.status);
+      const sc = scoreOf(m.score);
+      let winner = null;
+      if (status === "final") {
+        if (m.score?.winner === "HOME_TEAM") winner = A.code;
+        else if (m.score?.winner === "AWAY_TEAM") winner = B.code;
+      }
+      const show = status !== "scheduled";
+      return {
+        id: `m${m.id}`,
+        teamA: A, teamB: B,
+        scoreA: show ? sc.a : null, scoreB: show ? sc.b : null,
+        penaltiesA: sc.pa, penaltiesB: sc.pb,
+        status, winner,
+        kickoff: m.utcDate || null,
+        feedsInto: null,
+      };
+    });
+    return { id: st.id, label: st.label, window: windowOf(built), matches: built };
+  });
 
-    const st = fx.fixture?.status?.short; // NS, 1H, HT, 2H, ET, P, FT, AET, PEN...
-    if (["FT", "AET", "PEN"].includes(st)) {
-      m.status = "final";
-      const ph = fx.score?.penalty?.home ?? null;
-      const pa = fx.score?.penalty?.away ?? null;
-      m.penaltiesA = homeIsA ? ph : pa;
-      m.penaltiesB = homeIsA ? pa : ph;
-      const wHome = (gh + (ph || 0)) > (ga + (pa || 0));
-      m.winner = wHome ? home : away;
-    } else if (["1H", "HT", "2H", "ET", "BT", "P", "LIVE"].includes(st)) {
-      m.status = "live";
-    }
-    touched++;
+  // feedsInto: link each finished match to the slot its winner now occupies in
+  // the next round (so the renderer can fly the winner inward along a beam).
+  for (let r = 1; r < rounds.length; r++) {
+    const slot = {};
+    rounds[r].matches.forEach((m) => {
+      if (m.teamA.code) slot[m.teamA.code] = { match: m.id, slot: "A" };
+      if (m.teamB.code) slot[m.teamB.code] = { match: m.id, slot: "B" };
+    });
+    rounds[r - 1].matches.forEach((m) => {
+      const dst = m.status === "final" && m.winner && slot[m.winner];
+      if (dst) m.feedsInto = { round: rounds[r].id, match: dst.match, slot: dst.slot };
+    });
   }
-  return touched;
+
+  return { tournament: "World Cup 26", hosts: ["USA", "CAN", "MEX"], rounds };
 }
 
-// ---- 2. resolve advancement -------------------------------------------------
-function resolveAdvancement(data) {
-  const roundById = Object.fromEntries(data.rounds.map((r) => [r.id, r]));
-  for (const round of data.rounds) {
-    for (const m of round.matches) {
-      if (m.status !== "final" || !m.winner || !m.feedsInto) continue;
-      const winTeam = m.teamA?.code === m.winner ? m.teamA : m.teamB;
-      const tgt = roundById[m.feedsInto.round];
-      const tm = tgt?.matches.find((x) => x.id === m.feedsInto.match);
-      if (!tm || !winTeam) continue;
-      const slotKey = m.feedsInto.slot === "B" ? "teamB" : "teamA";
-      tm[slotKey] = { name: winTeam.name, code: winTeam.code };
-    }
-  }
-}
-
-// ---- 3. demo simulator (no API key needed) ---------------------------------
-// Drives the tournament on its own so the whole pipeline is visible end to end:
-// each tick it advances live matches (a goal, or full time), and when nothing is
-// live it kicks off the next scheduled tie. Combined with resolveAdvancement,
-// finished matches send their winner up a ring and grey out the loser — all in
-// the renderer, automatically. Reset anytime with `git checkout public/bracket.json`.
+// ---- offline demo simulator (no token) -------------------------------------
 function simulateTick(data) {
   const matches = data.rounds.flatMap((r) => r.matches);
   const live = matches.filter((m) => m.status === "live");
-  let changed = false;
-
-  if (live.length === 0) {
+  if (!live.length) {
     const next = matches
       .filter((m) => m.status === "scheduled" && m.teamA?.code && m.teamB?.code && m.kickoff)
       .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
-    if (next) {
-      next.status = "live";
-      next.scoreA = 0; next.scoreB = 0; next.penaltiesA = null; next.penaltiesB = null;
-      console.log(`  ▶ kickoff: ${next.teamA.name} v ${next.teamB.name}`);
-      changed = true;
-    }
-    return changed;
+    if (next) { next.status = "live"; next.scoreA = 0; next.scoreB = 0; }
+    return;
   }
-
   for (const m of live) {
     const roll = Math.random();
-    if (roll < 0.4) {
-      // a goal
-      if (Math.random() < 0.5) m.scoreA++; else m.scoreB++;
-      changed = true;
-    } else if (roll < 0.72) {
-      // full time
+    if (roll < 0.4) { Math.random() < 0.5 ? m.scoreA++ : m.scoreB++; }
+    else if (roll < 0.72) {
       m.status = "final";
       if (m.scoreA === m.scoreB) {
-        // knockout can't draw — decide on penalties
         const win = Math.random() < 0.5;
-        const hi = 3 + Math.floor(Math.random() * 3);
-        const lo = Math.max(0, hi - 1 - Math.floor(Math.random() * 2));
-        m.penaltiesA = win ? hi : lo;
-        m.penaltiesB = win ? lo : hi;
-        m.winner = m.penaltiesA > m.penaltiesB ? m.teamA.code : m.teamB.code;
-      } else {
-        m.winner = m.scoreA > m.scoreB ? m.teamA.code : m.teamB.code;
-      }
-      const wName = m.winner === m.teamA.code ? m.teamA.name : m.teamB.name;
-      console.log(`  ⏹ full time: ${m.teamA.name} ${m.scoreA}-${m.scoreB} ${m.teamB.name} → ${wName}`);
-      changed = true;
+        m.penaltiesA = win ? 4 : 3; m.penaltiesB = win ? 3 : 4;
+        m.winner = win ? m.teamA.code : m.teamB.code;
+      } else m.winner = m.scoreA > m.scoreB ? m.teamA.code : m.teamB.code;
     }
-    // otherwise: clock ticks, no event this tick
   }
-  return changed;
+}
+function resolveAdvancement(data) {
+  const byId = Object.fromEntries(data.rounds.map((r) => [r.id, r]));
+  for (const round of data.rounds)
+    for (const m of round.matches) {
+      if (m.status !== "final" || !m.winner || !m.feedsInto) continue;
+      const w = m.teamA?.code === m.winner ? m.teamA : m.teamB;
+      const tm = byId[m.feedsInto.round]?.matches.find((x) => x.id === m.feedsInto.match);
+      if (tm && w) tm[m.feedsInto.slot === "B" ? "teamB" : "teamA"] = { name: w.name, code: w.code };
+    }
 }
 
-// Only spend a provider request when a match is actually in play or about to
-// start, so a free ~100 req/day key lasts: with 1–2 matches/day the API is hit
-// only during those windows, not every cron tick. Override the window with
-// PRE_MIN / POST_MIN env vars.
+// Only call the provider when a match is live or about to start.
 function inMatchWindow(data) {
   const now = Date.now();
-  const PRE = (Number(process.env.PRE_MIN) || 20) * 60_000;       // before kickoff
-  const POST = (Number(process.env.POST_MIN) || 150) * 60_000;    // after kickoff (90'+ET+pens)
+  const PRE = (Number(process.env.PRE_MIN) || 20) * 60_000;
+  const POST = (Number(process.env.POST_MIN) || 150) * 60_000;
   return data.rounds.flatMap((r) => r.matches).some((m) => {
     if (m.status === "final") return false;
     if (m.status === "live") return true;
@@ -176,8 +159,6 @@ function inMatchWindow(data) {
   });
 }
 
-// Compare ignoring updated_at, so we only rewrite (and only bump the timestamp)
-// when something real changed — that keeps the client's 304 fast-path working.
 const fingerprint = (o) => {
   const c = JSON.parse(JSON.stringify(o));
   delete c.updated_at;
@@ -186,24 +167,24 @@ const fingerprint = (o) => {
 
 async function main() {
   const before = await readFile(FILE, "utf8");
-  const data = JSON.parse(before);
-  let n = 0;
-  if (DEMO) {
-    simulateTick(data);
-  } else if (inMatchWindow(data)) {
-    n = applyFixtures(data, await fetchFixtures());
-  } else {
-    console.log("· idle — no match in window, skipped provider call (0 API requests)");
-  }
-  resolveAdvancement(data);
+  const current = JSON.parse(before);
+  let next;
 
-  if (fingerprint(JSON.parse(before)) === fingerprint(data)) {
-    console.log("· no change");
-    return false;
+  if (DEMO) {
+    next = current;
+    simulateTick(next);
+    resolveAdvancement(next);
+  } else {
+    if (!inMatchWindow(current)) { console.log("· idle — no match in window, skipped provider call"); return false; }
+    const token = process.env.FOOTBALL_DATA_TOKEN;
+    if (!token) { console.log("· no FOOTBALL_DATA_TOKEN set — nothing to fetch"); return false; }
+    next = buildBracket(await fetchMatches(token));
   }
-  data.updated_at = new Date().toISOString();
-  await writeFile(FILE, JSON.stringify(data, null, 2) + "\n");
-  console.log(DEMO ? "✓ bracket.json advanced (demo)" : `✓ bracket.json updated — ${n} match(es) from provider`);
+
+  if (fingerprint(current) === fingerprint(next)) { console.log("· no change"); return false; }
+  next.updated_at = new Date().toISOString();
+  await writeFile(FILE, JSON.stringify(next, null, 2) + "\n");
+  console.log(DEMO ? "✓ bracket.json advanced (demo)" : "✓ bracket.json rebuilt from football-data.org");
   return true;
 }
 

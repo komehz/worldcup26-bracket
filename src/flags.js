@@ -1,12 +1,15 @@
 // FIFA 3-letter code -> flagcdn (ISO 3166-1 alpha-2, plus a few subdivisions).
-// Flags only, never official crests, to keep clear of trademark questions.
+// Flags only, never crests, to keep clear of trademark questions. Covers the
+// 48 teams of the 2026 finals (codes match football-data.org's tla field).
 const FIFA_TO_ISO = {
-  CAN: "ca", RSA: "za", PAR: "py", GER: "de", MAR: "ma", NED: "nl",
-  BRA: "br", JPN: "jp", CIV: "ci", NOR: "no", FRA: "fr", SWE: "se",
-  MEX: "mx", ECU: "ec", ENG: "gb-eng", COD: "cd", BEL: "be", SEN: "sn",
-  USA: "us", BIH: "ba", ESP: "es", AUT: "at", POR: "pt", CRO: "hr",
-  SUI: "ch", ALG: "dz", ARG: "ar", CPV: "cv", AUS: "au", EGY: "eg",
-  COL: "co", GHA: "gh",
+  ALG: "dz", ARG: "ar", AUS: "au", AUT: "at", BEL: "be", BIH: "ba",
+  BRA: "br", CAN: "ca", CIV: "ci", COD: "cd", COL: "co", CPV: "cv",
+  CRO: "hr", CUW: "cw", CZE: "cz", ECU: "ec", EGY: "eg", ENG: "gb-eng",
+  ESP: "es", FRA: "fr", GER: "de", GHA: "gh", HAI: "ht", IRN: "ir",
+  IRQ: "iq", JOR: "jo", JPN: "jp", KOR: "kr", KSA: "sa", MAR: "ma",
+  MEX: "mx", NED: "nl", NOR: "no", NZL: "nz", PAN: "pa", PAR: "py",
+  POR: "pt", QAT: "qa", RSA: "za", SCO: "gb-sct", SEN: "sn", SUI: "ch",
+  SWE: "se", TUN: "tn", TUR: "tr", URU: "uy", USA: "us", UZB: "uz",
 };
 
 // flagcdn serves crisp PNGs at fixed widths; w320 is plenty for a card face.
