@@ -28,7 +28,7 @@ const THEMES = {
     name: "light",
     bg: 0xece9e1, fogNear: 22, fogFar: 54,
     ambient: 0xffffff, ambientI: 1.5, rimI: 0.32, coreI: 0.45,
-    guide: 0xbeb8aa, guideOpacity: 0.85, line: 0xcdc8ba, frameElim: 0xdedacf,
+    guide: 0xbeb8aa, guideOn: 0xa9701c, guideOpacity: 0.85, line: 0xcdc8ba, frameElim: 0xdedacf,
     beam: 0xb8893f, glow: 0.18, gemEmissive: 0.5,
     card: {
       bg: "#e9e6df", noFlag: "#dcd8ce", grad: "246,243,236", gradMax: 0.8,
@@ -43,7 +43,7 @@ const THEMES = {
     name: "dark",
     bg: 0x0a0a0c, fogNear: 18, fogFar: 44,
     ambient: 0x6a6a78, ambientI: 0.85, rimI: 0.55, coreI: 1.0,
-    guide: 0x3a3a42, guideOpacity: 0.6, line: 0x2b2b30, frameElim: 0x26262e,
+    guide: 0x3a3a42, guideOn: GOLD, guideOpacity: 0.6, line: 0x2b2b30, frameElim: 0x26262e,
     beam: GOLD, glow: 0.7, gemEmissive: 0.35,
     card: {
       bg: "#121317", noFlag: "#17171c", grad: "8,8,10", gradMax: 0.82,
@@ -723,8 +723,8 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
   function applyGuideColors() {
     guideMats.forEach((m, i) => {
       const on = i === currentRound;
-      m.color.setHex(on ? GOLD : T.guide);
-      m.opacity = on ? Math.max(0.8, T.guideOpacity) : T.guideOpacity;
+      m.color.setHex(on ? T.guideOn : T.guide);
+      m.opacity = on ? Math.max(0.95, T.guideOpacity) : T.guideOpacity;
     });
   }
 
@@ -803,7 +803,7 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
 
     // current round's guide ring breathes gently
     if (currentRound != null && guideMats[currentRound]) {
-      guideMats[currentRound].opacity = Math.max(0.8, T.guideOpacity) + Math.sin(now * 0.003) * 0.18;
+      guideMats[currentRound].opacity = Math.max(0.9, T.guideOpacity) + Math.sin(now * 0.003) * 0.1;
     }
 
     // per-card state animation
