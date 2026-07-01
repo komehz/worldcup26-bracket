@@ -1,8 +1,11 @@
 import { createScene } from "./scene.js";
 import { createBracketSource } from "./bracket.js";
 import { createUI } from "./ui.js";
+import { inject } from "../node_modules/@vercel/analytics/dist/index.mjs";
 
 async function boot() {
+  // Initialize Vercel Web Analytics
+  inject();
   // Wait for the brand fonts so the first card faces render correctly.
   if (document.fonts?.ready) {
     try { await document.fonts.ready; } catch {}
