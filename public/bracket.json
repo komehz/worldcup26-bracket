@@ -229,19 +229,19 @@
             "name": "Senegal",
             "code": "SEN"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Said Martinez",
             "nationality": "Honduras"
           },
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-01T20:00:00Z",
           "feedsInto": {
@@ -955,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T18:36:20.013Z"
+  "updated_at": "2026-07-01T20:06:28.101Z"
 }
