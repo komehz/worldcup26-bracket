@@ -237,7 +237,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Said Martinez",
+            "nationality": "Honduras"
+          },
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-01T20:00:00Z",
@@ -953,5 +956,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T17:56:07.020Z"
+  "updated_at": "2026-07-01T18:00:55.315Z"
 }
