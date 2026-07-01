@@ -229,7 +229,7 @@
             "name": "Senegal",
             "code": "SEN"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -955,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T21:20:30.525Z"
+  "updated_at": "2026-07-01T21:54:17.991Z"
 }
