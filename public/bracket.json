@@ -274,7 +274,7 @@
             "name": "Congo DR",
             "code": "COD"
           },
-          "scoreA": 1,
+          "scoreA": 2,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -774,5 +774,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T17:44:19.631Z"
+  "updated_at": "2026-07-01T17:54:18.814Z"
 }
