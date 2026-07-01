@@ -209,7 +209,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Raphael Claus",
+            "nationality": "Brazil"
+          },
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-02T00:00:00Z",
@@ -955,5 +958,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T21:56:19.669Z"
+  "updated_at": "2026-07-01T22:00:59.835Z"
 }
