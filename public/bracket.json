@@ -232,13 +232,13 @@
             "name": "Senegal",
             "code": "SEN"
           },
-          "scoreA": 2,
+          "scoreA": 3,
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "EXTRA_TIME",
+          "duration": "REGULAR",
           "providerStatus": "PAUSED",
           "referee": {
             "name": "Said Martinez",
@@ -958,5 +958,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T22:26:19.731Z"
+  "updated_at": "2026-07-01T22:48:19.962Z"
 }
