@@ -86,12 +86,14 @@ function makeMatch(id, A, B, pm) {
   let status = "scheduled", winner = null, kickoff = null;
   let sc = { a: null, b: null, pa: null, pb: null };
   let ht = { a: null, b: null };
-  let duration = null, providerStatus = null, referee = null;
+  let duration = null, providerStatus = null, referee = null, wentToExtraTime = false;
   if (pm) {
     status = statusOf(pm.status);
     providerStatus = pm.status || null; // raw status keeps the PAUSED = half-time signal
     kickoff = pm.utcDate || null;
-    duration = pm.score?.duration || null; // REGULAR | EXTRA_TIME | PENALTY_SHOOTOUT
+    duration = pm.score?.duration || null; // REGULAR | EXTRA_TIME | PENALTY_SHOOTOUT (unreliable — flip-flops live)
+    const et = pm.score?.extraTime; // trustworthy: present once a tie goes to extra time
+    wentToExtraTime = !!(et && (et.home != null || et.away != null));
     const raw = scoreOf(pm.score);
     const rawHt = halfOf(pm.score);
     const homeIsA = pm.homeTeam?.tla === A.code;
@@ -111,7 +113,7 @@ function makeMatch(id, A, B, pm) {
     scoreA: show ? sc.a : null, scoreB: show ? sc.b : null,
     penaltiesA: sc.pa, penaltiesB: sc.pb,
     halftimeA: show ? ht.a : null, halftimeB: show ? ht.b : null,
-    duration, providerStatus, referee,
+    duration, providerStatus, referee, wentToExtraTime,
     status, winner,
     kickoff,
     feedsInto: null,
