@@ -230,7 +230,7 @@
             "code": "SEN"
           },
           "scoreA": 0,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
@@ -955,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T20:06:28.101Z"
+  "updated_at": "2026-07-01T20:30:45.624Z"
 }
