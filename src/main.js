@@ -15,16 +15,17 @@ async function boot() {
     onFocusRound: (r) => scene.focusRound(r),
     onHighlightRound: (r) => scene.setCurrentRound(r),
     onTheme: (t) => scene.setTheme(t),
+    onFocusLive: (i) => scene.faceLiveMatch(i),
   });
 
   const scene = createScene(canvas, {
     onHover: (info) => {
       // hover previews a match unless one is pinned by a click
-      if (info) ui.showMatch(info);
+      if (info) ui.showMatch(info, { pinned: false });
       else if (!scene.selected) ui.hidePanel();
     },
     onSelect: (info) => {
-      if (info) ui.showMatch(info);
+      if (info) ui.showMatch(info, { pinned: true });
       else ui.hidePanel();
     },
     onReady: () => {

@@ -373,6 +373,41 @@ body::before {
 .pill--scheduled { color: var(--muted); }
 .pill .dot { width: 6px; height: 6px; }
 
+/* Collapsible "More details" (live extras: half-time, referee, venue). */
+.panel__more { margin-top: 0.5rem; }
+.panel__more-toggle {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  appearance: none; background: none; border: none;
+  border-top: 1px solid var(--line-soft);
+  cursor: pointer;
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.55rem 0;
+  transition: color 0.25s var(--ease);
+}
+.panel__more-toggle:hover { color: var(--ink); }
+.panel__more-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.panel__more-chev {
+  width: 7px; height: 7px; flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease);
+}
+.panel__more-toggle[aria-expanded="true"] .panel__more-chev { transform: rotate(-135deg); }
+/* .panel__more-body also has .panel__meta (grid); override its top border/margin and collapse it. */
+.panel__more-body {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s var(--ease), opacity 0.3s var(--ease), padding-top 0.3s var(--ease);
+}
+.panel__more-body.open { max-height: 240px; opacity: 1; padding-top: 0.4rem; }
+
 /* ---------- Legend ---------- */
 .legend {
   position: fixed;
@@ -392,6 +427,24 @@ body::before {
   max-width: 92vw;
 }
 .legend__item { display: inline-flex; align-items: center; gap: 0.45rem; text-transform: uppercase; }
+/* The LIVE item is a button that faces the wheel at a live game. */
+.legend__live {
+  pointer-events: auto; /* .legend itself is pointer-events:none */
+  appearance: none;
+  border: none;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  transition: color 0.25s var(--ease), background 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+.legend__live:hover:not(:disabled) { color: var(--ink); background: var(--hover); }
+.legend__live:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.legend__live:disabled { opacity: 0.4; cursor: default; }
+.legend__live:disabled .dot--live { animation: none; box-shadow: none; opacity: 0.6; }
 .legend__hint {
   font-family: var(--mono);
   letter-spacing: 0.04em;
@@ -483,7 +536,7 @@ body::before {
     right: 0; left: 0;
     transform: none;
     width: auto;
-    max-height: 60vh;
+    max-height: 72vh;
     overflow-y: auto;
     border-radius: 16px 16px 0 0;
     border-bottom: none;
@@ -493,4 +546,5 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .loader__msg, .dot--live { animation: none; }
+  .panel__more-body, .panel__more-chev { transition: none; }
 }

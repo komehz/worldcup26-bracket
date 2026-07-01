@@ -49,6 +49,12 @@ function scoreOf(score) {
   return { a: ft.home ?? null, b: ft.away ?? null, pa: null, pb: null };
 }
 
+// Half-time score (home/away), or nulls if the provider hasn't recorded it yet.
+function halfOf(score) {
+  const ht = score?.halfTime || {};
+  return { a: ht.home ?? null, b: ht.away ?? null };
+}
+
 const fmtDay = (iso) => {
   const d = new Date(iso);
   return `${d.getUTCDate()} ${d.toLocaleString("en", { month: "short", timeZone: "UTC" })}`;
@@ -74,16 +80,24 @@ async function fetchMatches(token) {
 function makeMatch(id, A, B, pm) {
   let status = "scheduled", winner = null, kickoff = null;
   let sc = { a: null, b: null, pa: null, pb: null };
+  let ht = { a: null, b: null };
+  let duration = null, providerStatus = null, referee = null;
   if (pm) {
     status = statusOf(pm.status);
+    providerStatus = pm.status || null; // raw status keeps the PAUSED = half-time signal
     kickoff = pm.utcDate || null;
+    duration = pm.score?.duration || null; // REGULAR | EXTRA_TIME | PENALTY_SHOOTOUT
     const raw = scoreOf(pm.score);
+    const rawHt = halfOf(pm.score);
     const homeIsA = pm.homeTeam?.tla === A.code;
     sc = homeIsA ? raw : { a: raw.b, b: raw.a, pa: raw.pb, pb: raw.pa };
+    ht = homeIsA ? rawHt : { a: rawHt.b, b: rawHt.a };
     if (status === "final") {
       if (pm.score?.winner === "HOME_TEAM") winner = homeIsA ? A.code : B.code;
       else if (pm.score?.winner === "AWAY_TEAM") winner = homeIsA ? B.code : A.code;
     }
+    const ref = pm.referees?.[0];
+    if (ref?.name) referee = { name: ref.name, nationality: ref.nationality || null };
   }
   const show = status !== "scheduled";
   return {
@@ -91,6 +105,8 @@ function makeMatch(id, A, B, pm) {
     teamA: A, teamB: B,
     scoreA: show ? sc.a : null, scoreB: show ? sc.b : null,
     penaltiesA: sc.pa, penaltiesB: sc.pb,
+    halftimeA: show ? ht.a : null, halftimeB: show ? ht.b : null,
+    duration, providerStatus, referee,
     status, winner,
     kickoff,
     feedsInto: null,

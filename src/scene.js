@@ -29,7 +29,7 @@ const THEMES = {
     bg: 0xece9e1, fogNear: 22, fogFar: 54,
     ambient: 0xffffff, ambientI: 1.5, rimI: 0.32, coreI: 0.45,
     guide: 0xbeb8aa, guideOn: 0xa9701c, guideOpacity: 0.85, line: 0xcdc8ba, frameElim: 0xdedacf,
-    beam: 0xb8893f, glow: 0.18, gemEmissive: 0.5,
+    beam: 0xb8893f, glow: 0.18, gemEmissive: 0.5, liveHalo: 1.6,
     card: {
       bg: "#e9e6df", noFlag: "#dcd8ce", grad: "246,243,236", gradMax: 0.8,
       ink: "#1b1b1e", inkSoft: "rgba(27,27,30,0.6)", muted: "#6c6a63",
@@ -44,7 +44,7 @@ const THEMES = {
     bg: 0x0a0a0c, fogNear: 18, fogFar: 44,
     ambient: 0x6a6a78, ambientI: 0.85, rimI: 0.55, coreI: 1.0,
     guide: 0x3a3a42, guideOn: GOLD, guideOpacity: 0.6, line: 0x2b2b30, frameElim: 0x26262e,
-    beam: GOLD, glow: 0.7, gemEmissive: 0.35,
+    beam: GOLD, glow: 0.7, gemEmissive: 0.35, liveHalo: 1.0,
     card: {
       bg: "#121317", noFlag: "#17171c", grad: "8,8,10", gradMax: 0.82,
       ink: "#f5f4f0", inkSoft: "rgba(245,244,240,0.72)", muted: "#8d8d92",
@@ -71,6 +71,13 @@ const circMean = (a) => {
 const angDist = (a, b) => {
   const d = Math.abs(a - b) % (Math.PI * 2);
   return Math.min(d, Math.PI * 2 - d);
+};
+// signed shortest angular delta from a to b, in [-PI, PI] — for a short-path spin
+const angDelta = (a, b) => {
+  let d = (b - a) % (Math.PI * 2);
+  if (d > Math.PI) d -= Math.PI * 2;
+  else if (d < -Math.PI) d += Math.PI * 2;
+  return d;
 };
 
 const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
@@ -334,16 +341,25 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
     // YXZ: heading (radial facing) first, then pitch about the card's own tangent.
     group.rotation.order = "YXZ";
     group.rotation.x = CARD_PITCH;
+    // A soft additive gold plane behind the card, only shown (and pulsed) for live
+    // matches, so a live game reads as a glowing tile without a bloom pass.
+    const haloMat = new THREE.MeshBasicMaterial({
+      color: GOLD, transparent: true, opacity: 0,
+      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
+    });
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W + 0.5, CARD_H + 0.5), haloMat);
+    halo.position.z = -0.02;
+    halo.visible = false;
     const frame = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W + 0.09, CARD_H + 0.09), frameMat);
     frame.position.z = -0.012;
     const face = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W, CARD_H), faceMat);
     face.userData.key = key;
-    group.add(frame, face);
+    group.add(halo, frame, face);
     ringGroups[roundIndex].add(group);
-    pickables.push(face);
+    pickables.push(face); // halo/frame stay out of the pick path
 
     return {
-      key, roundIndex, group, face, frame, faceMat, frameMat, ctx, canvasEl, texture,
+      key, roundIndex, group, face, frame, faceMat, frameMat, halo, haloMat, ctx, canvasEl, texture,
       base: new THREE.Vector3(), outward: new THREE.Vector3(), baseRotY: 0,
       hover: 0, sink: 0, dim: 1, baseOpacity: 1, flagImg: null, sig: "",
       flagUrl: null, state: "upcoming", travel: null, model: null,
@@ -587,6 +603,31 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
     rotCurrent = rotTarget; // start already facing it, no spin-in on load
   }
 
+  // Ease the wheel so a live match faces the viewer. Scans every round (a live
+  // game can be in any ring) and cycles through them on repeated calls. Unlike
+  // faceTodayMatch it sets only rotTarget, so the existing ease animates the
+  // spin, and it takes the short way round. Returns { count } for the UI.
+  function faceLiveMatch(cycleIndex = 0) {
+    if (!layout || !dataRef) return { count: 0 };
+    const live = [];
+    dataRef.rounds.forEach((round) => {
+      const r = layout.roundIndexById[round.id];
+      round.matches.forEach((m) => {
+        if (m.status !== "live") return;
+        const mi = layout.matchIndexById[round.id]?.[m.id];
+        if (r != null && mi != null) live.push({ r, mi });
+      });
+    });
+    if (!live.length) return { count: 0 };
+    const pick = live[((cycleIndex % live.length) + live.length) % live.length];
+    const desired = layout.centers[pick.r][pick.mi] - Math.PI / 2;
+    rotTarget = rotCurrent + angDelta(rotCurrent, desired); // shortest path, animated
+    spinVel = 0; flingVel = 0;
+    if (reduce) rotCurrent = rotTarget; // respect reduced motion: no spin-in
+    markInteract();
+    return { count: live.length };
+  }
+
   function winnerSlotOf(match) {
     if (match.winner === match.teamA?.code) return "A";
     if (match.winner === match.teamB?.code) return "B";
@@ -649,8 +690,10 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
     card.texture.dispose();
     card.faceMat.dispose();
     card.frameMat.dispose();
+    card.haloMat.dispose();
     card.face.geometry.dispose();
     card.frame.geometry.dispose();
+    card.halo.geometry.dispose();
   }
 
   // ---- interaction ----
@@ -889,7 +932,9 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
           card.base.y + off.y + sinkY,
           card.base.z + off.z
         );
-        card.group.scale.setScalar(1 + 0.08 * card.hover);
+        // live cards sit a touch larger so the flag reads bigger at the front
+        const liveBump = card.state === "live" ? (reduce ? 0.09 : 0.08 + 0.02 * livePulse) : 0;
+        card.group.scale.setScalar(1 + 0.08 * card.hover + liveBump);
         const op = card.baseOpacity * card.dim;
         card.faceMat.opacity = op;
         card.frameMat.opacity = op * 0.95;
@@ -901,7 +946,15 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
       else if (card.state === "winner") emis = 0.12;
       emis += card.hover * 0.25;
       card.faceMat.emissiveIntensity = emis * 0.6;
-      card.frameMat.emissiveIntensity = card.state === "live" ? 0.4 + livePulse * 0.6 : card.state === "winner" ? 0.5 : card.hover * 0.4;
+      card.frameMat.emissiveIntensity = card.state === "live" ? 0.6 + livePulse * 0.8 : card.state === "winner" ? 0.5 : card.hover * 0.4;
+
+      // live halo: thick pulsing gold glow behind the card (steady under reduce)
+      if (card.state === "live") {
+        card.halo.visible = true;
+        card.haloMat.opacity = (reduce ? 0.28 : 0.18 + livePulse * 0.3) * card.dim * (T.liveHalo || 1);
+      } else if (card.halo.visible) {
+        card.halo.visible = false;
+      }
     }
 
     // beam draw-in
@@ -922,7 +975,7 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
   tick();
 
   return {
-    setData, focusRound, setCurrentRound, setTheme, clearSelection, resize,
+    setData, focusRound, setCurrentRound, setTheme, clearSelection, resize, faceLiveMatch,
     get selected() { return selectedKey; },
   };
 }
