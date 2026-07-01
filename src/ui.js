@@ -16,14 +16,15 @@ const fmtUpdated = (iso) => {
   return d.toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 };
 
-// Precise phase from status + duration (the provider's PAUSED = half-time).
+// Precise phase from status + duration. The provider marks every stoppage as
+// PAUSED but flips duration to EXTRA_TIME / PENALTY_SHOOTOUT as a knockout tie
+// deadlocks, so we lean on duration instead of calling every pause "half-time"
+// (which left a game stuck on "Half-time" all through extra time and penalties).
 function phaseLabel(match) {
+  if (match.duration === "PENALTY_SHOOTOUT") return "Penalties";
+  if (match.duration === "EXTRA_TIME") return match.status === "final" ? "After extra time" : "Extra time";
   if (match.status === "live") return match.providerStatus === "PAUSED" ? "Half-time" : "Live";
-  if (match.status === "final") {
-    if (match.duration === "PENALTY_SHOOTOUT") return "Penalties";
-    if (match.duration === "EXTRA_TIME") return "After extra time";
-    return "Full time";
-  }
+  if (match.status === "final") return "Full time";
   return "Scheduled";
 }
 
