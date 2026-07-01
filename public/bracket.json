@@ -236,7 +236,7 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Said Martinez",
             "nationality": "Honduras"
@@ -955,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T20:56:19.655Z"
+  "updated_at": "2026-07-01T21:14:18.678Z"
 }
