@@ -26,8 +26,11 @@ const STAGES = [
 const teamOf = (t) =>
   t && t.name ? { name: t.name, code: t.tla || null } : { name: "To be decided", code: null, placeholder: true };
 
+// football-data.org reports an in-play match as "LIVE" (and sometimes the more
+// granular "IN_PLAY"/"PAUSED" at half-time). Treat all three as live, or a match
+// in progress falls through to "scheduled" and never pulses on the bracket.
 const statusOf = (s) =>
-  ["IN_PLAY", "PAUSED"].includes(s) ? "live" : ["FINISHED", "AWARDED"].includes(s) ? "final" : "scheduled";
+  ["LIVE", "IN_PLAY", "PAUSED"].includes(s) ? "live" : ["FINISHED", "AWARDED"].includes(s) ? "final" : "scheduled";
 
 // Goals before any shootout, with penalties kept separate.
 function scoreOf(score) {

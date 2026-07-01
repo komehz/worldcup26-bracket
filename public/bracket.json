@@ -274,11 +274,11 @@
             "name": "Congo DR",
             "code": "COD"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-01T16:00:00Z",
           "feedsInto": {
@@ -774,5 +774,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T13:54:41.812Z"
+  "updated_at": "2026-07-01T16:34:41.925Z"
 }
