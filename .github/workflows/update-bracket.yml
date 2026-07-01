@@ -67,7 +67,12 @@ jobs:
         if: steps.guard.outputs.active == 'true'
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
-        run: node update-bracket.mjs
+        run: |
+          if [ -z "$FOOTBALL_DATA_TOKEN" ]; then
+            echo "::error::FOOTBALL_DATA_TOKEN secret is not set. Add it in Settings > Secrets and variables > Actions, then re-run."
+            exit 1
+          fi
+          node update-bracket.mjs
 
       - name: Commit & push if bracket.json changed
         if: steps.guard.outputs.active == 'true'

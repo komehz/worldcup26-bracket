@@ -169,18 +169,15 @@ function resolveAdvancement(data) {
     }
 }
 
-// Only call the provider when a match is live or about to start.
-function inMatchWindow(data) {
-  const now = Date.now();
-  const PRE = (Number(process.env.PRE_MIN) || 20) * 60_000;
-  const POST = (Number(process.env.POST_MIN) || 150) * 60_000;
-  return data.rounds.flatMap((r) => r.matches).some((m) => {
-    if (m.status === "final") return false;
-    if (m.status === "live") return true;
-    if (!m.kickoff) return false;
-    const dt = new Date(m.kickoff).getTime() - now;
-    return dt < PRE && dt > -POST;
-  });
+// Fetch on every run while the tournament is still going. We used to gate on a
+// narrow "match window" around each kickoff (kickoff -20min to +150min), but
+// GitHub throttles scheduled workflows to only a handful of runs a day, so runs
+// kept landing outside those windows and finished matches were missed for good
+// (once the window closed, that match never re-entered it). A full sync each
+// run is cheap (the free tier allows ~10 req/min) and never misses a result.
+// Once every match is final there is nothing left to pull, so we skip then.
+function hasPendingMatches(data) {
+  return data.rounds.flatMap((r) => r.matches).some((m) => m.status !== "final");
 }
 
 const fingerprint = (o) => {
@@ -199,7 +196,7 @@ async function main() {
     simulateTick(next);
     resolveAdvancement(next);
   } else {
-    if (!inMatchWindow(current)) { console.log("· idle — no match in window, skipped provider call"); return false; }
+    if (!hasPendingMatches(current)) { console.log("· every match is final — nothing left to update"); return false; }
     const token = process.env.FOOTBALL_DATA_TOKEN;
     if (!token) { console.log("· no FOOTBALL_DATA_TOKEN set — nothing to fetch"); return false; }
     next = buildBracket(await fetchMatches(token));

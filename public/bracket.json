@@ -235,12 +235,12 @@
             "name": "Ecuador",
             "code": "ECU"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 2,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "status": "scheduled",
-          "winner": null,
+          "status": "final",
+          "winner": "MEX",
           "kickoff": "2026-07-01T01:00:00Z",
           "feedsInto": null
         },
@@ -679,5 +679,5 @@
       ]
     }
   ],
-  "updated_at": "2026-06-30T23:17:11.374Z"
+  "updated_at": "2026-07-01T13:37:04.155Z"
 }
