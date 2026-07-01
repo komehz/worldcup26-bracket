@@ -81,8 +81,30 @@ GitHub Action (`.github/workflows/update-bracket.yml`):
    `FOOTBALL_DATA_TOKEN`.
 
 The Action rebuilds `bracket.json` on a schedule, commits only when something
-changed, and the push triggers a Vercel redeploy. New scores appear within a few
-minutes. It disables itself the day after the final.
+changed, and the push triggers a Vercel redeploy. It disables itself the day
+after the final.
+
+### A note on schedule reliability
+
+GitHub's `schedule` trigger is best-effort, not a guaranteed clock. The docs
+state runs "can be delayed during periods of high loads" and that "if the load
+is sufficiently high enough, some queued jobs may be dropped," with the start of
+every hour called out as a high-load time. So the cron is set to offset minutes
+(`:02, :07, :12, ...`) rather than `*/5` to dodge the busiest slots, but runs can
+still slip. For a guaranteed cadence, trigger the workflow from an external cron
+(for example [cron-job.org](https://cron-job.org)) with a fine-grained token:
+
+```
+POST https://api.github.com/repos/<owner>/<repo>/actions/workflows/update-bracket.yml/dispatches
+Authorization: Bearer <fine-grained PAT with Actions: write>
+Content-Type: application/json
+
+{"ref":"main"}
+```
+
+`workflow_dispatch` events are processed reliably (they are not subject to the
+scheduled-run drops), so an external ping every few minutes gives dependable
+freshness. The built-in schedule stays as a free fallback.
 
 ## Project layout
 

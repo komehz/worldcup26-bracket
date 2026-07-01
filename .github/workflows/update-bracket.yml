@@ -10,19 +10,29 @@ name: Update bracket
 #      (a free token from football-data.org, whose free tier covers the WC).
 #   2. Connect the repo to Vercel (auto-deploys on push to the default branch).
 #
-# Rate limits: update-bracket only calls the provider when a match is live or
-# about to kick off (see inMatchWindow in update-bracket.mjs), and the free tier
-# allows ~10 requests/minute, so the 5-minute schedule is comfortable while
-# giving roughly 5-minute freshness during play. Idle ticks make zero calls.
-# (Public-repo Actions minutes are free and unlimited; private repos get 2,000/mo.)
+# Scheduling reality (per GitHub docs): the shortest allowed interval is 5
+# minutes, but scheduled runs are best-effort. "The schedule event can be
+# delayed during periods of high loads of GitHub Actions workflow runs. High
+# load times include the start of every hour ... If the load is sufficiently
+# high enough, some queued jobs may be dropped." So */5 (which fires at :00,
+# :05, :10 ... every one a multiple of 5, and :00 is the worst minute) is the
+# most-dropped schedule possible. We use offset minutes (:02, :07, :12 ...) to
+# dodge the busy slots. Runs may still be delayed/dropped; for guaranteed
+# cadence, trigger workflow_dispatch from an external cron (see README).
+# Each run makes one provider call (free tier ~10 req/min; GITHUB_TOKEN 1,000
+# req/hr) and public-repo Actions minutes are unlimited, so frequency is free.
 #
 # Auto-stop: after the final (cutoff = 00:00 UTC the day after the latest
 # kickoff in bracket.json) the job disables this workflow, so it stops running
 # once the tournament is over. Re-enable it from the Actions tab if needed.
+# (Public repos also auto-disable scheduled workflows after 60 days of no repo
+# activity, which won't happen mid-tournament.)
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    # Every 5 minutes, offset to :02/:07/... — never on the hour, never a
+    # multiple of 5, to minimise GitHub's high-load drops.
+    - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
   workflow_dispatch: {}
 
 permissions:
