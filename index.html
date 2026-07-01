@@ -101,5 +101,10 @@
        edge in production and 404s locally. Enable it in the project's
        Analytics tab. No npm package or bundler needed for pageviews. -->
   <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Vercel Speed Insights (Web Vitals): same deal, edge-served in production
+       and 404s locally. Enable it in the project's Speed Insights tab. This is
+       exactly what injectSpeedInsights() appends, so no package/bundler needed. -->
+  <script defer src="/_vercel/speed-insights/script.js" data-sdkn="@vercel/speed-insights" data-sdkv="2.0.0"></script>
 </body>
 </html>
