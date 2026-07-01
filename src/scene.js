@@ -342,12 +342,15 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
     group.rotation.order = "YXZ";
     group.rotation.x = CARD_PITCH;
     // A soft additive gold plane behind the card, only shown (and pulsed) for live
-    // matches, so a live game reads as a glowing tile without a bloom pass.
+    // matches, so a live game reads as a glowing tile without a bloom pass. Its
+    // width is kept under PAIR_ARC (1.55) so a live card's halo can't cross the
+    // midline into its opponent's — two additive halos otherwise stack into a
+    // bright hotspot in the gap. Extra glow goes to the top/bottom, which is clear.
     const haloMat = new THREE.MeshBasicMaterial({
       color: GOLD, transparent: true, opacity: 0,
       blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
     });
-    const halo = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W + 0.5, CARD_H + 0.5), haloMat);
+    const halo = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W + 0.16, CARD_H + 0.3), haloMat);
     halo.position.z = -0.02;
     halo.visible = false;
     const frame = new THREE.Mesh(new THREE.PlaneGeometry(CARD_W + 0.09, CARD_H + 0.09), frameMat);
