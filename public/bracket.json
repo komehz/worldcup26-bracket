@@ -360,13 +360,13 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Adham Makhadmeh",
             "nationality": "Jordan"
           },
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ENG",
           "kickoff": "2026-07-01T16:00:00Z",
           "feedsInto": {
             "round": "R16",
@@ -644,9 +644,8 @@
             "code": "MEX"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "England",
+            "code": "ENG"
           },
           "scoreA": null,
           "scoreB": null,
@@ -956,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T18:00:55.315Z"
+  "updated_at": "2026-07-01T18:06:21.017Z"
 }
