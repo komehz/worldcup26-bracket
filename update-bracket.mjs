@@ -59,12 +59,17 @@ const fmtDay = (iso) => {
   const d = new Date(iso);
   return `${d.getUTCDate()} ${d.toLocaleString("en", { month: "short", timeZone: "UTC" })}`;
 };
-function windowOf(matches) {
-  const ds = matches.map((m) => m.kickoff).filter(Boolean).sort();
-  if (!ds.length) return "";
-  const a = fmtDay(ds[0]), b = fmtDay(ds[ds.length - 1]);
-  return a === b ? a : `${a} to ${b}`;
+// A round's date label from a list of ISO kickoff times: one day as-is, exactly
+// two days joined with "and", and a longer span as "first to last".
+function windowOfDates(isoList) {
+  const iso = isoList.filter(Boolean).sort();
+  if (!iso.length) return "";
+  const days = [...new Set(iso.map(fmtDay))]; // ascending (iso is sorted)
+  if (days.length === 1) return days[0];
+  if (days.length === 2) return `${days[0]} and ${days[1]}`;
+  return `${days[0]} to ${days[days.length - 1]}`;
 }
+const windowOf = (matches) => windowOfDates(matches.map((m) => m.kickoff));
 
 async function fetchMatches(token) {
   const res = await fetch(API, { headers: { "X-Auth-Token": token } });
@@ -155,7 +160,11 @@ function buildBracket(matches) {
       if (a) a.feedsInto = { round: STAGES[s].id, match: id, slot: "A" };
       if (b) b.feedsInto = { round: STAGES[s].id, match: id, slot: "B" };
     }
-    rounds.push({ id: STAGES[s].id, label: STAGES[s].label, window: windowOf(ties), matches: ties });
+    // Date label comes from the provider's own schedule for this stage, which
+    // has kickoff dates even before the teams are known — so QF/SF/Final still
+    // show their dates while their ties are placeholders.
+    const win = windowOfDates(prov.map((m) => m.utcDate));
+    rounds.push({ id: STAGES[s].id, label: STAGES[s].label, window: win, matches: ties });
   }
 
   return { tournament: "World Cup 26", hosts: ["USA", "CAN", "MEX"], rounds };
