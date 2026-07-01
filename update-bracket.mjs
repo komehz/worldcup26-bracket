@@ -64,71 +64,79 @@ async function fetchMatches(token) {
   return json.matches || [];
 }
 
+// Turn one provider fixture into a displayed match, oriented so (teamA, teamB)
+// line up with the given team objects. For the Round of 32 those are just the
+// provider's home/away; for inner rounds they are the two feeder winners, and
+// the fixture (found by matching both teams) supplies score/status/kickoff.
+function makeMatch(id, A, B, pm) {
+  let status = "scheduled", winner = null, kickoff = null;
+  let sc = { a: null, b: null, pa: null, pb: null };
+  if (pm) {
+    status = statusOf(pm.status);
+    kickoff = pm.utcDate || null;
+    const raw = scoreOf(pm.score);
+    const homeIsA = pm.homeTeam?.tla === A.code;
+    sc = homeIsA ? raw : { a: raw.b, b: raw.a, pa: raw.pb, pb: raw.pa };
+    if (status === "final") {
+      if (pm.score?.winner === "HOME_TEAM") winner = homeIsA ? A.code : B.code;
+      else if (pm.score?.winner === "AWAY_TEAM") winner = homeIsA ? B.code : A.code;
+    }
+  }
+  const show = status !== "scheduled";
+  return {
+    id,
+    teamA: A, teamB: B,
+    scoreA: show ? sc.a : null, scoreB: show ? sc.b : null,
+    penaltiesA: sc.pa, penaltiesB: sc.pb,
+    status, winner,
+    kickoff,
+    feedsInto: null,
+  };
+}
+
+const placeholder = () => ({ name: "To be decided", code: null, placeholder: true });
+const winnerTeamOf = (m) =>
+  m && m.status === "final" && m.winner ? (m.teamA.code === m.winner ? m.teamA : m.teamB) : null;
+
 function buildBracket(matches) {
   const byStage = {};
   for (const m of matches) (byStage[m.stage] ||= []).push(m);
 
-  const rounds = STAGES.map((st) => {
-    const list = (byStage[st.fd] || []).slice().sort((a, b) => a.id - b.id);
-    const built = list.map((m) => {
-      const A = teamOf(m.homeTeam), B = teamOf(m.awayTeam);
-      const status = statusOf(m.status);
-      const sc = scoreOf(m.score);
-      let winner = null;
-      if (status === "final") {
-        if (m.score?.winner === "HOME_TEAM") winner = A.code;
-        else if (m.score?.winner === "AWAY_TEAM") winner = B.code;
-      }
-      const show = status !== "scheduled";
-      return {
-        id: `m${m.id}`,
-        teamA: A, teamB: B,
-        scoreA: show ? sc.a : null, scoreB: show ? sc.b : null,
-        penaltiesA: sc.pa, penaltiesB: sc.pb,
-        status, winner,
-        kickoff: m.utcDate || null,
-        feedsInto: null,
-      };
-    });
-    return { id: st.id, label: st.label, window: windowOf(built), matches: built };
-  });
+  // Round of 32 comes straight from the provider, sorted by id.
+  const r32 = (byStage[STAGES[0].fd] || [])
+    .slice()
+    .sort((a, b) => a.id - b.id)
+    .map((pm) => makeMatch(`m${pm.id}`, teamOf(pm.homeTeam), teamOf(pm.awayTeam), pm));
+  const rounds = [{ id: STAGES[0].id, label: STAGES[0].label, window: windowOf(r32), matches: r32 }];
 
-  // Advancement. The provider sometimes marks a match final but is slow to place
-  // its winner in the next round, so we do it ourselves. Matches are sorted by
-  // id, and each adjacent pair (2k, 2k+1) are bracket siblings feeding one
-  // next-round tie. So once we know where one sibling goes (the provider placed
-  // it, or we did), the other goes to the empty slot of the same tie.
-  for (let r = 0; r < rounds.length - 1; r++) {
-    const here = rounds[r].matches, next = rounds[r + 1];
-
-    // 1. link any winner the provider has already seeded into the next round
-    const slot = {};
-    next.matches.forEach((m) => {
-      if (m.teamA.code) slot[m.teamA.code] = { match: m.id, slot: "A" };
-      if (m.teamB.code) slot[m.teamB.code] = { match: m.id, slot: "B" };
-    });
-    here.forEach((m) => {
-      if (m.status === "final" && m.winner && slot[m.winner])
-        m.feedsInto = { round: next.id, match: slot[m.winner].match, slot: slot[m.winner].slot };
-    });
-
-    // 2. complete the sibling: if one of a pair is linked, the other feeds the
-    //    same tie's other slot
-    for (let k = 0; k + 1 < here.length; k += 2) {
-      const a = here[k], b = here[k + 1];
-      if (a.feedsInto && !b.feedsInto && b.status === "final" && b.winner)
-        b.feedsInto = { round: a.feedsInto.round, match: a.feedsInto.match, slot: a.feedsInto.slot === "A" ? "B" : "A" };
-      else if (b.feedsInto && !a.feedsInto && a.status === "final" && a.winner)
-        a.feedsInto = { round: b.feedsInto.round, match: b.feedsInto.match, slot: b.feedsInto.slot === "A" ? "B" : "A" };
+  // Every inner round is built structurally: matches sorted by id pair up as
+  // (2k, 2k+1) bracket siblings feeding tie k of the next round (verified: this
+  // reproduces every tie the provider has placed, lower id in slot A). We drop a
+  // winner into its next-round slot the moment its match is final, even if the
+  // opponent is still "to be decided" — the provider won't seed a tie until both
+  // feeders finish, but the tree is known, so we don't wait. The next-round
+  // fixture (for score/status/kickoff) is matched by its two teams once known.
+  for (let s = 1; s < STAGES.length; s++) {
+    const prev = rounds[s - 1].matches;
+    const prov = byStage[STAGES[s].fd] || [];
+    const ties = [];
+    for (let k = 0; k < Math.floor(prev.length / 2); k++) {
+      const a = prev[2 * k], b = prev[2 * k + 1];
+      const A = winnerTeamOf(a) || placeholder();
+      const B = winnerTeamOf(b) || placeholder();
+      const id = `${STAGES[s].id}-${k}`;
+      const pm =
+        A.code && B.code
+          ? prov.find((m) => {
+              const h = m.homeTeam?.tla, x = m.awayTeam?.tla;
+              return (h === A.code && x === B.code) || (h === B.code && x === A.code);
+            })
+          : null;
+      ties.push(makeMatch(id, A, B, pm));
+      if (a) a.feedsInto = { round: STAGES[s].id, match: id, slot: "A" };
+      if (b) b.feedsInto = { round: STAGES[s].id, match: id, slot: "B" };
     }
-
-    // 3. place every linked winner into its next-round slot
-    here.forEach((m) => {
-      if (m.status !== "final" || !m.winner || !m.feedsInto) return;
-      const tm = next.matches.find((x) => x.id === m.feedsInto.match);
-      const w = m.teamA.code === m.winner ? m.teamA : m.teamB;
-      if (tm) tm[m.feedsInto.slot === "B" ? "teamB" : "teamA"] = { name: w.name, code: w.code };
-    });
+    rounds.push({ id: STAGES[s].id, label: STAGES[s].label, window: windowOf(ties), matches: ties });
   }
 
   return { tournament: "World Cup 26", hosts: ["USA", "CAN", "MEX"], rounds };

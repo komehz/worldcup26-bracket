@@ -30,7 +30,7 @@
           "kickoff": "2026-06-29T20:30:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537375",
+            "match": "R16-0",
             "slot": "A"
           }
         },
@@ -53,7 +53,7 @@
           "kickoff": "2026-06-30T21:00:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537375",
+            "match": "R16-0",
             "slot": "B"
           }
         },
@@ -76,7 +76,7 @@
           "kickoff": "2026-06-28T19:00:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537376",
+            "match": "R16-1",
             "slot": "A"
           }
         },
@@ -99,7 +99,7 @@
           "kickoff": "2026-06-30T01:00:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537376",
+            "match": "R16-1",
             "slot": "B"
           }
         },
@@ -120,7 +120,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-02T23:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-2",
+            "slot": "A"
+          }
         },
         {
           "id": "m537420",
@@ -139,7 +143,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-02T19:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-2",
+            "slot": "B"
+          }
         },
         {
           "id": "m537421",
@@ -158,7 +166,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-02T00:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-3",
+            "slot": "A"
+          }
         },
         {
           "id": "m537422",
@@ -177,7 +189,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-01T20:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-3",
+            "slot": "B"
+          }
         },
         {
           "id": "m537423",
@@ -198,7 +214,7 @@
           "kickoff": "2026-06-29T17:00:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537377",
+            "match": "R16-4",
             "slot": "A"
           }
         },
@@ -221,7 +237,7 @@
           "kickoff": "2026-06-30T17:00:00Z",
           "feedsInto": {
             "round": "R16",
-            "match": "m537377",
+            "match": "R16-4",
             "slot": "B"
           }
         },
@@ -242,7 +258,11 @@
           "status": "final",
           "winner": "MEX",
           "kickoff": "2026-07-01T01:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-5",
+            "slot": "A"
+          }
         },
         {
           "id": "m537426",
@@ -261,7 +281,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-01T16:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-5",
+            "slot": "B"
+          }
         },
         {
           "id": "m537427",
@@ -280,7 +304,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-03T22:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-6",
+            "slot": "A"
+          }
         },
         {
           "id": "m537428",
@@ -299,7 +327,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-03T18:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-6",
+            "slot": "B"
+          }
         },
         {
           "id": "m537429",
@@ -318,7 +350,11 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-03T03:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-7",
+            "slot": "A"
+          }
         },
         {
           "id": "m537430",
@@ -337,17 +373,21 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-04T01:30:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "R16",
+            "match": "R16-7",
+            "slot": "B"
+          }
         }
       ]
     },
     {
       "id": "R16",
       "label": "Round of 16",
-      "window": "4 Jul to 7 Jul",
+      "window": "4 Jul to 5 Jul",
       "matches": [
         {
-          "id": "m537375",
+          "id": "R16-0",
           "teamA": {
             "name": "Paraguay",
             "code": "PAR"
@@ -363,10 +403,14 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-04T21:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-0",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537376",
+          "id": "R16-1",
           "teamA": {
             "name": "Canada",
             "code": "CAN"
@@ -382,10 +426,64 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-04T17:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-0",
+            "slot": "B"
+          }
         },
         {
-          "id": "m537377",
+          "id": "R16-2",
+          "teamA": {
+            "name": "To be decided",
+            "code": null,
+            "placeholder": true
+          },
+          "teamB": {
+            "name": "To be decided",
+            "code": null,
+            "placeholder": true
+          },
+          "scoreA": null,
+          "scoreB": null,
+          "penaltiesA": null,
+          "penaltiesB": null,
+          "status": "scheduled",
+          "winner": null,
+          "kickoff": null,
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-1",
+            "slot": "A"
+          }
+        },
+        {
+          "id": "R16-3",
+          "teamA": {
+            "name": "To be decided",
+            "code": null,
+            "placeholder": true
+          },
+          "teamB": {
+            "name": "To be decided",
+            "code": null,
+            "placeholder": true
+          },
+          "scoreA": null,
+          "scoreB": null,
+          "penaltiesA": null,
+          "penaltiesB": null,
+          "status": "scheduled",
+          "winner": null,
+          "kickoff": null,
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-1",
+            "slot": "B"
+          }
+        },
+        {
+          "id": "R16-4",
           "teamA": {
             "name": "Brazil",
             "code": "BRA"
@@ -401,10 +499,38 @@
           "status": "scheduled",
           "winner": null,
           "kickoff": "2026-07-05T20:00:00Z",
-          "feedsInto": null
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-2",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537378",
+          "id": "R16-5",
+          "teamA": {
+            "name": "Mexico",
+            "code": "MEX"
+          },
+          "teamB": {
+            "name": "To be decided",
+            "code": null,
+            "placeholder": true
+          },
+          "scoreA": null,
+          "scoreB": null,
+          "penaltiesA": null,
+          "penaltiesB": null,
+          "status": "scheduled",
+          "winner": null,
+          "kickoff": null,
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-2",
+            "slot": "B"
+          }
+        },
+        {
+          "id": "R16-6",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -421,11 +547,15 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-06T00:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-3",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537379",
+          "id": "R16-7",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -442,81 +572,22 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-06T19:00:00Z",
-          "feedsInto": null
-        },
-        {
-          "id": "m537380",
-          "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "scoreA": null,
-          "scoreB": null,
-          "penaltiesA": null,
-          "penaltiesB": null,
-          "status": "scheduled",
-          "winner": null,
-          "kickoff": "2026-07-07T00:00:00Z",
-          "feedsInto": null
-        },
-        {
-          "id": "m537381",
-          "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "scoreA": null,
-          "scoreB": null,
-          "penaltiesA": null,
-          "penaltiesB": null,
-          "status": "scheduled",
-          "winner": null,
-          "kickoff": "2026-07-07T16:00:00Z",
-          "feedsInto": null
-        },
-        {
-          "id": "m537382",
-          "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
-          },
-          "scoreA": null,
-          "scoreB": null,
-          "penaltiesA": null,
-          "penaltiesB": null,
-          "status": "scheduled",
-          "winner": null,
-          "kickoff": "2026-07-07T20:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "QF",
+            "match": "QF-3",
+            "slot": "B"
+          }
         }
       ]
     },
     {
       "id": "QF",
       "label": "Quarterfinals",
-      "window": "9 Jul to 12 Jul",
+      "window": "",
       "matches": [
         {
-          "id": "m537383",
+          "id": "QF-0",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -533,11 +604,15 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-09T20:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "SF",
+            "match": "SF-0",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537384",
+          "id": "QF-1",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -554,11 +629,15 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-10T19:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "SF",
+            "match": "SF-0",
+            "slot": "B"
+          }
         },
         {
-          "id": "m537385",
+          "id": "QF-2",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -575,11 +654,15 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-11T21:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "SF",
+            "match": "SF-1",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537386",
+          "id": "QF-3",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -596,18 +679,22 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-12T01:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "SF",
+            "match": "SF-1",
+            "slot": "B"
+          }
         }
       ]
     },
     {
       "id": "SF",
       "label": "Semifinals",
-      "window": "14 Jul to 15 Jul",
+      "window": "",
       "matches": [
         {
-          "id": "m537387",
+          "id": "SF-0",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -624,11 +711,15 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-14T19:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "FINAL",
+            "match": "FINAL-0",
+            "slot": "A"
+          }
         },
         {
-          "id": "m537388",
+          "id": "SF-1",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -645,18 +736,22 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-15T19:00:00Z",
-          "feedsInto": null
+          "kickoff": null,
+          "feedsInto": {
+            "round": "FINAL",
+            "match": "FINAL-0",
+            "slot": "B"
+          }
         }
       ]
     },
     {
       "id": "FINAL",
       "label": "Final",
-      "window": "19 Jul",
+      "window": "",
       "matches": [
         {
-          "id": "m537390",
+          "id": "FINAL-0",
           "teamA": {
             "name": "To be decided",
             "code": null,
@@ -673,11 +768,11 @@
           "penaltiesB": null,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-19T19:00:00Z",
+          "kickoff": null,
           "feedsInto": null
         }
       ]
     }
   ],
-  "updated_at": "2026-07-01T13:37:04.155Z"
+  "updated_at": "2026-07-01T13:54:41.812Z"
 }
