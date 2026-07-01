@@ -491,7 +491,7 @@
     {
       "id": "R16",
       "label": "Round of 16",
-      "window": "4 Jul to 5 Jul",
+      "window": "4 Jul to 7 Jul",
       "matches": [
         {
           "id": "R16-0",
@@ -730,7 +730,7 @@
     {
       "id": "QF",
       "label": "Quarterfinals",
-      "window": "",
+      "window": "9 Jul to 12 Jul",
       "matches": [
         {
           "id": "QF-0",
@@ -857,7 +857,7 @@
     {
       "id": "SF",
       "label": "Semifinals",
-      "window": "",
+      "window": "14 Jul and 15 Jul",
       "matches": [
         {
           "id": "SF-0",
@@ -924,7 +924,7 @@
     {
       "id": "FINAL",
       "label": "Final",
-      "window": "",
+      "window": "19 Jul",
       "matches": [
         {
           "id": "FINAL-0",
@@ -955,5 +955,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-01T18:06:21.017Z"
+  "updated_at": "2026-07-01T18:36:20.013Z"
 }
