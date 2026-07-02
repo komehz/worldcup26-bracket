@@ -214,14 +214,14 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Raphael Claus",
             "nationality": "Brazil"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "USA",
           "kickoff": "2026-07-02T00:00:00Z",
           "feedsInto": {
             "round": "R16",
@@ -245,7 +245,7 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "EXTRA_TIME",
+          "duration": "REGULAR",
           "providerStatus": "FINISHED",
           "referee": {
             "name": "Said Martinez",
@@ -604,9 +604,8 @@
         {
           "id": "R16-3",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "United States",
+            "code": "USA"
           },
           "teamB": {
             "name": "Belgium",
@@ -988,5 +987,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T02:04:19.822Z"
+  "updated_at": "2026-07-02T02:12:20.974Z"
 }
