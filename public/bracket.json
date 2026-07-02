@@ -245,7 +245,7 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "REGULAR",
+          "duration": "EXTRA_TIME",
           "providerStatus": "FINISHED",
           "referee": {
             "name": "Said Martinez",
@@ -987,5 +987,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T03:54:22.820Z"
+  "updated_at": "2026-07-02T03:56:23.662Z"
 }
