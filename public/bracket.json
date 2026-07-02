@@ -178,7 +178,7 @@
             "name": "Austria",
             "code": "AUT"
           },
-          "scoreA": 2,
+          "scoreA": 3,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -990,5 +990,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T20:34:18.780Z"
+  "updated_at": "2026-07-02T20:56:18.835Z"
 }
