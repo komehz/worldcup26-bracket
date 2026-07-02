@@ -178,20 +178,20 @@
             "name": "Austria",
             "code": "AUT"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 1,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 1,
+          "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Glenn Nyberg",
             "nationality": "Sweden"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-02T19:00:00Z",
           "feedsInto": {
@@ -990,5 +990,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T17:01:04.746Z"
+  "updated_at": "2026-07-02T19:56:17.998Z"
 }
