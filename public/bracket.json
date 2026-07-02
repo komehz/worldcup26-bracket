@@ -188,14 +188,14 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Glenn Nyberg",
             "nationality": "Sweden"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ESP",
           "kickoff": "2026-07-02T19:00:00Z",
           "feedsInto": {
             "round": "R16",
@@ -584,9 +584,8 @@
             "placeholder": true
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Spain",
+            "code": "ESP"
           },
           "scoreA": null,
           "scoreB": null,
@@ -993,5 +992,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T21:00:49.666Z"
+  "updated_at": "2026-07-02T21:04:21.249Z"
 }
