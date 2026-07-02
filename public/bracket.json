@@ -207,20 +207,20 @@
             "name": "Bosnia-Herzegovina",
             "code": "BIH"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Raphael Claus",
             "nationality": "Brazil"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-02T00:00:00Z",
           "feedsInto": {
@@ -988,5 +988,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T00:02:22.859Z"
+  "updated_at": "2026-07-02T00:06:22.601Z"
 }
