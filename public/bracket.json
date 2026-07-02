@@ -149,20 +149,20 @@
             "name": "Croatia",
             "code": "CRO"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Espen Eskås",
             "nationality": "Norway"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-02T23:00:00Z",
           "feedsInto": {
@@ -992,5 +992,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T21:04:21.249Z"
+  "updated_at": "2026-07-02T23:06:27.972Z"
 }
