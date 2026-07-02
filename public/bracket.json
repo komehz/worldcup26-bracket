@@ -185,7 +185,7 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Glenn Nyberg",
             "nationality": "Sweden"
@@ -990,5 +990,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T20:12:22.854Z"
+  "updated_at": "2026-07-02T20:16:19.550Z"
 }
