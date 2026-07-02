@@ -157,7 +157,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Espen Eskås",
+            "nationality": "Norway"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -990,5 +993,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T20:56:18.835Z"
+  "updated_at": "2026-07-02T21:00:49.666Z"
 }
