@@ -214,7 +214,7 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Raphael Claus",
             "nationality": "Brazil"
@@ -988,5 +988,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T01:16:18.164Z"
+  "updated_at": "2026-07-02T01:18:19.712Z"
 }
