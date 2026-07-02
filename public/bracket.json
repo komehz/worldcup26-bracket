@@ -211,8 +211,8 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 0,
+          "halftimeB": 0,
           "duration": "REGULAR",
           "providerStatus": "IN_PLAY",
           "referee": {
@@ -245,7 +245,7 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "EXTRA_TIME",
+          "duration": "REGULAR",
           "providerStatus": "FINISHED",
           "referee": {
             "name": "Said Martinez",
@@ -988,5 +988,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T00:50:29.700Z"
+  "updated_at": "2026-07-02T00:52:17.082Z"
 }
