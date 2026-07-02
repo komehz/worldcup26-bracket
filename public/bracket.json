@@ -207,7 +207,7 @@
             "name": "Bosnia-Herzegovina",
             "code": "BIH"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -245,7 +245,7 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "REGULAR",
+          "duration": "EXTRA_TIME",
           "providerStatus": "FINISHED",
           "referee": {
             "name": "Said Martinez",
@@ -988,5 +988,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-02T00:40:35.021Z"
+  "updated_at": "2026-07-02T00:50:29.700Z"
 }
