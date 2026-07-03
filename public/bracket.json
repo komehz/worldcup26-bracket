@@ -439,12 +439,12 @@
           },
           "scoreA": 1,
           "scoreB": 1,
-          "penaltiesA": 0,
-          "penaltiesB": 0,
+          "penaltiesA": 1,
+          "penaltiesB": 1,
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "PENALTY_SHOOTOUT",
-          "providerStatus": "PAUSED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Gustavo Tejera",
             "nationality": "Uruguay"
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T20:44:18.039Z"
+  "updated_at": "2026-07-03T20:50:29.846Z"
 }
