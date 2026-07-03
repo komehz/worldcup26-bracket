@@ -405,20 +405,20 @@
             "name": "Cape Verde Islands",
             "code": "CPV"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Drew Fischer",
             "nationality": "Canada"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-03T22:00:00Z",
           "feedsInto": {
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T21:00:47.440Z"
+  "updated_at": "2026-07-03T22:06:22.696Z"
 }
