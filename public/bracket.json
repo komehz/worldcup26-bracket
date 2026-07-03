@@ -443,13 +443,13 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "duration": "EXTRA_TIME",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Gustavo Tejera",
             "nationality": "Uruguay"
           },
-          "wentToExtraTime": false,
+          "wentToExtraTime": true,
           "status": "live",
           "winner": null,
           "kickoff": "2026-07-03T18:00:00Z",
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T20:04:18.908Z"
+  "updated_at": "2026-07-03T20:10:32.481Z"
 }
