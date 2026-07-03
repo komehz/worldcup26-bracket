@@ -156,7 +156,7 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Espen Eskås",
             "nationality": "Norway"
@@ -992,5 +992,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T00:10:43.157Z"
+  "updated_at": "2026-07-03T00:12:24.551Z"
 }
