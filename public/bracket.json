@@ -439,11 +439,11 @@
           },
           "scoreA": 1,
           "scoreB": 1,
-          "penaltiesA": null,
-          "penaltiesB": null,
+          "penaltiesA": 0,
+          "penaltiesB": 0,
           "halftimeA": 0,
           "halftimeB": 1,
-          "duration": "EXTRA_TIME",
+          "duration": "PENALTY_SHOOTOUT",
           "providerStatus": "PAUSED",
           "referee": {
             "name": "Gustavo Tejera",
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T20:24:21.590Z"
+  "updated_at": "2026-07-03T20:44:18.039Z"
 }
