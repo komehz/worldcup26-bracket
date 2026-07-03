@@ -406,7 +406,7 @@
             "code": "CPV"
           },
           "scoreA": 1,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T23:12:19.539Z"
+  "updated_at": "2026-07-03T23:26:23.979Z"
 }
