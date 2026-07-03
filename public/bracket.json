@@ -413,7 +413,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Drew Fischer",
+            "nationality": "Canada"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -996,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T19:22:19.256Z"
+  "updated_at": "2026-07-03T20:00:48.008Z"
 }
