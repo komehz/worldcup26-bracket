@@ -434,20 +434,20 @@
             "name": "Egypt",
             "code": "EGY"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Gustavo Tejera",
             "nationality": "Uruguay"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-03T18:00:00Z",
           "feedsInto": {
@@ -996,5 +996,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T16:00:50.916Z"
+  "updated_at": "2026-07-03T18:06:18.972Z"
 }
