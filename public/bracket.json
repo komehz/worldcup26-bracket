@@ -444,7 +444,7 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Gustavo Tejera",
             "nationality": "Uruguay"
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T20:00:48.008Z"
+  "updated_at": "2026-07-03T20:04:18.908Z"
 }
