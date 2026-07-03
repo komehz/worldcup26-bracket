@@ -467,10 +467,10 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 1,
+          "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Yael Falcón",
             "nationality": "Argentina"
@@ -994,5 +994,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T03:16:31.123Z"
+  "updated_at": "2026-07-03T03:54:27.310Z"
 }
