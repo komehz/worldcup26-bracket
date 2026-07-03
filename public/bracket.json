@@ -439,8 +439,8 @@
           },
           "scoreA": 1,
           "scoreB": 1,
-          "penaltiesA": 1,
-          "penaltiesB": 1,
+          "penaltiesA": 4,
+          "penaltiesB": 4,
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "PENALTY_SHOOTOUT",
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T20:58:21.060Z"
+  "updated_at": "2026-07-03T21:00:47.440Z"
 }
