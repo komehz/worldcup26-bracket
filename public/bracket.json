@@ -405,7 +405,7 @@
             "name": "Cape Verde Islands",
             "code": "CPV"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T22:06:22.696Z"
+  "updated_at": "2026-07-03T22:34:17.827Z"
 }
