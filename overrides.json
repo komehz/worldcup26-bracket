@@ -1,0 +1,12 @@
+{
+  "537419": {
+    "note": "Croatia's late equaliser was disallowed by VAR; the provider feed still shows 2-2 FINISHED with winner DRAW. Real result: Portugal 2-1 Croatia. Delete this entry once football-data.org corrects the match.",
+    "patch": {
+      "status": "FINISHED",
+      "score": {
+        "winner": "HOME_TEAM",
+        "fullTime": { "home": 2, "away": 1 }
+      }
+    }
+  }
+}

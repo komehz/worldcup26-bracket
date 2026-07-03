@@ -78,6 +78,34 @@ async function fetchMatches(token) {
   return json.matches || [];
 }
 
+// Manual corrections for wrong provider data (e.g. a VAR-disallowed goal left
+// in the feed). overrides.json maps a provider match id to a patch deep-merged
+// onto the raw fixture BEFORE the bracket is built, so scores, winner and
+// advancement all flow from the corrected data. Delete an entry once the
+// provider fixes itself.
+async function loadOverrides() {
+  try {
+    return JSON.parse(await readFile(fileURLToPath(new URL("./overrides.json", import.meta.url)), "utf8"));
+  } catch {
+    return {};
+  }
+}
+function deepMerge(base, patch) {
+  for (const [k, v] of Object.entries(patch)) {
+    if (v && typeof v === "object" && !Array.isArray(v) && base[k] && typeof base[k] === "object") deepMerge(base[k], v);
+    else base[k] = v;
+  }
+}
+function applyOverrides(matches, overrides) {
+  for (const m of matches) {
+    const o = overrides[String(m.id)];
+    if (!o?.patch) continue;
+    deepMerge(m, o.patch);
+    console.log(`· override applied to ${m.id}${o.note ? ` — ${o.note}` : ""}`);
+  }
+  return matches;
+}
+
 // Turn one provider fixture into a displayed match, oriented so (teamA, teamB)
 // line up with the given team objects. For the Round of 32 those are just the
 // provider's home/away; for inner rounds they are the two feeder winners, and
@@ -102,6 +130,19 @@ function makeMatch(id, A, B, pm) {
     if (status === "final") {
       if (pm.score?.winner === "HOME_TEAM") winner = homeIsA ? A.code : B.code;
       else if (pm.score?.winner === "AWAY_TEAM") winner = homeIsA ? B.code : A.code;
+      // provider slow to set score.winner: derive it from the scores themselves
+      else if (sc.pa != null && sc.pb != null && sc.pa !== sc.pb) winner = sc.pa > sc.pb ? A.code : B.code;
+      else if (sc.a != null && sc.b != null && sc.a !== sc.b) winner = sc.a > sc.b ? A.code : B.code;
+      // Sanity guard: a knockout tie cannot finish without a winner (a level
+      // game goes to extra time, then penalties). FINISHED with no winner is
+      // impossible data — e.g. a VAR-disallowed goal left in the feed — so hold
+      // the tie as undecided instead of rendering a final draw that advances
+      // no one. It resolves itself when the provider corrects (or via
+      // overrides.json).
+      if (!winner) {
+        console.warn(`! ${id}: FINISHED but no winner (${sc.a}-${sc.b}, pens ${sc.pa}-${sc.pb}) — holding as undecided`);
+        status = "live";
+      }
     }
     const ref = pm.referees?.[0];
     if (ref?.name) referee = { name: ref.name, nationality: ref.nationality || null };
@@ -237,7 +278,7 @@ async function main() {
     if (!hasPendingMatches(current)) { console.log("· every match is final — nothing left to update"); return false; }
     const token = process.env.FOOTBALL_DATA_TOKEN;
     if (!token) { console.log("· no FOOTBALL_DATA_TOKEN set — nothing to fetch"); return false; }
-    next = buildBracket(await fetchMatches(token));
+    next = buildBracket(applyOverrides(await fetchMatches(token), await loadOverrides()));
   }
 
   if (fingerprint(current) === fingerprint(next)) { console.log("· no change"); return false; }
