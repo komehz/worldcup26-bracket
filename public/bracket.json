@@ -149,7 +149,7 @@
             "name": "Croatia",
             "code": "CRO"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -992,5 +992,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T00:18:16.954Z"
+  "updated_at": "2026-07-03T00:34:22.506Z"
 }
