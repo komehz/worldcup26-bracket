@@ -470,14 +470,14 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Yael Falcón",
             "nationality": "Argentina"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "SUI",
           "kickoff": "2026-07-03T03:00:00Z",
           "feedsInto": {
             "round": "R16",
@@ -729,9 +729,8 @@
         {
           "id": "R16-7",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Switzerland",
+            "code": "SUI"
           },
           "teamB": {
             "name": "To be decided",
@@ -994,5 +993,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T04:12:20.675Z"
+  "updated_at": "2026-07-03T05:02:12.977Z"
 }
