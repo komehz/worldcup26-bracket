@@ -442,7 +442,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Gustavo Tejera",
+            "nationality": "Uruguay"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -993,5 +996,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T05:02:12.977Z"
+  "updated_at": "2026-07-03T16:00:50.916Z"
 }
