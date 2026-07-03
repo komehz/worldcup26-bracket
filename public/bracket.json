@@ -463,20 +463,20 @@
             "name": "Algeria",
             "code": "ALG"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Yael Falcón",
             "nationality": "Argentina"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-03T03:00:00Z",
           "feedsInto": {
@@ -994,5 +994,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-03T01:24:17.958Z"
+  "updated_at": "2026-07-03T03:06:21.536Z"
 }
