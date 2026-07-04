@@ -604,13 +604,13 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "duration": null,
+          "providerStatus": null,
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-06T19:00:00Z",
+          "kickoff": null,
           "feedsInto": {
             "round": "QF",
             "match": "QF-1",
@@ -720,13 +720,13 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "duration": null,
+          "providerStatus": null,
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-07T16:00:00Z",
+          "kickoff": null,
           "feedsInto": {
             "round": "QF",
             "match": "QF-3",
@@ -749,13 +749,13 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "duration": null,
+          "providerStatus": null,
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-07T20:00:00Z",
+          "kickoff": null,
           "feedsInto": {
             "round": "QF",
             "match": "QF-3",
@@ -999,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T06:10:32.102Z"
+  "updated_at": "2026-07-04T06:12:20.721Z"
 }
