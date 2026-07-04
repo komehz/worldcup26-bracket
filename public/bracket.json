@@ -508,14 +508,14 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "COL",
           "kickoff": "2026-07-04T01:30:00Z",
           "feedsInto": {
             "round": "R16",
@@ -741,9 +741,8 @@
             "code": "SUI"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Colombia",
+            "code": "COL"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1001,5 +1000,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T02:56:16.822Z"
+  "updated_at": "2026-07-04T03:38:17.594Z"
 }
