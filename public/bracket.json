@@ -570,7 +570,7 @@
             "code": "MAR"
           },
           "scoreA": 0,
-          "scoreB": 1,
+          "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
@@ -1002,5 +1002,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T18:20:31.261Z"
+  "updated_at": "2026-07-04T18:52:17.114Z"
 }
