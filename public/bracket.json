@@ -501,20 +501,20 @@
             "name": "Ghana",
             "code": "GHA"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-04T01:30:00Z",
           "feedsInto": {
@@ -1001,5 +1001,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T00:50:34.015Z"
+  "updated_at": "2026-07-04T01:36:22.283Z"
 }
