@@ -540,20 +540,20 @@
             "name": "France",
             "code": "FRA"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Il'giz Tantashev",
             "nationality": "Uzbekistan"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-04T21:00:00Z",
           "feedsInto": {
@@ -1004,5 +1004,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T19:06:20.277Z"
+  "updated_at": "2026-07-04T21:06:19.998Z"
 }
