@@ -573,20 +573,20 @@
             "code": "MAR"
           },
           "scoreA": 0,
-          "scoreB": 2,
+          "scoreB": 3,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Michael Oliver",
             "nationality": "England"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "MAR",
           "kickoff": "2026-07-04T17:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -783,9 +783,8 @@
             "placeholder": true
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Morocco",
+            "code": "MAR"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1005,5 +1004,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T19:00:47.724Z"
+  "updated_at": "2026-07-04T19:06:20.277Z"
 }
