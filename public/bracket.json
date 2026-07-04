@@ -412,7 +412,7 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Drew Fischer",
             "nationality": "Canada"
@@ -1002,5 +1002,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T00:24:17.542Z"
+  "updated_at": "2026-07-04T00:30:42.038Z"
 }
