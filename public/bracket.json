@@ -501,7 +501,7 @@
             "name": "Ghana",
             "code": "GHA"
           },
-          "scoreA": 1,
+          "scoreA": 2,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1001,5 +1001,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T02:46:18.739Z"
+  "updated_at": "2026-07-04T02:56:16.822Z"
 }
