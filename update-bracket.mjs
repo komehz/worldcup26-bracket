@@ -75,7 +75,12 @@ async function fetchMatches(token) {
   const res = await fetch(API, { headers: { "X-Auth-Token": token } });
   if (!res.ok) throw new Error(`provider HTTP ${res.status}`);
   const json = await res.json();
-  return json.matches || [];
+  // A 200 with no matches is an error-shaped response, not a schedule: the
+  // provider once served exactly that and a hollow bracket got committed over
+  // good data. Fail the run instead; the next tick retries.
+  if (!Array.isArray(json.matches) || json.matches.length === 0)
+    throw new Error(`provider returned no matches (${JSON.stringify(json).slice(0, 160)})`);
+  return json.matches;
 }
 
 // ---- second-source cross-check (ESPN public scoreboard, no key) ------------
@@ -343,8 +348,23 @@ function resolveAdvancement(data) {
 // (once the window closed, that match never re-entered it). A full sync each
 // run is cheap (the free tier allows ~10 req/min) and never misses a result.
 // Once every match is final there is nothing left to pull, so we skip then.
+// An EMPTY bracket also counts as pending: treating no-matches as "all final"
+// once deadlocked the pipeline after a hollow file got written.
 function hasPendingMatches(data) {
-  return data.rounds.flatMap((r) => r.matches).some((m) => m.status !== "final");
+  const ms = data.rounds.flatMap((r) => r.matches);
+  return ms.length === 0 || ms.some((m) => m.status !== "final");
+}
+
+// Results never un-happen: a rebuild with fewer matches or fewer finished
+// matches than the file we already have means degraded provider data (an
+// empty 200, a half-populated schedule), never a real schedule change. Refuse
+// to replace good data with worse.
+function regressed(current, next) {
+  const count = (d) => d.rounds.flatMap((r) => r.matches).length;
+  const finals = (d) => d.rounds.flatMap((r) => r.matches).filter((m) => m.status === "final").length;
+  if (count(next) < count(current)) return `match count ${count(current)} -> ${count(next)}`;
+  if (finals(next) < finals(current)) return `finished count ${finals(current)} -> ${finals(next)}`;
+  return null;
 }
 
 const fingerprint = (o) => {
@@ -377,6 +397,10 @@ async function main() {
     next = buildBracket(applyOverrides(matches, overrides));
   }
 
+  if (!DEMO) {
+    const worse = regressed(current, next);
+    if (worse) { console.error(`✗ refusing to write degraded bracket (${worse}) — keeping current data`); return false; }
+  }
   if (fingerprint(current) === fingerprint(next)) { console.log("· no change"); return false; }
   next.updated_at = new Date().toISOString();
   await writeFile(FILE, JSON.stringify(next, null, 2) + "\n");
