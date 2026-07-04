@@ -78,6 +78,94 @@ async function fetchMatches(token) {
   return json.matches || [];
 }
 
+// ---- second-source cross-check (ESPN public scoreboard, no key) ------------
+// football-data.org has served wrong finals more than once (a VAR-disallowed
+// goal left in as 2-2, a 4-4 "finished" shootout). ESPN's public scoreboard is
+// keyless, fast, and uses the same three-letter codes for all 32 teams, so we
+// verify every result against it: a match only renders as final once BOTH
+// sources say it is, and if they disagree on a final score ESPN wins (it has
+// been right every time the two diverged). overrides.json still trumps both.
+const ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard";
+
+async function fetchEspn(matches) {
+  const days = matches.map((m) => m.utcDate).filter(Boolean).map((d) => d.slice(0, 10).replace(/-/g, "")).sort();
+  if (!days.length) return null;
+  const res = await fetch(`${ESPN}?dates=${days[0]}-${days[days.length - 1]}`);
+  if (!res.ok) throw new Error(`ESPN HTTP ${res.status}`);
+  const json = await res.json();
+  const map = {};
+  for (const e of json.events || []) {
+    const comps = e.competitions?.[0]?.competitors || [];
+    const h = comps.find((c) => c.homeAway === "home"), a = comps.find((c) => c.homeAway === "away");
+    const ha = h?.team?.abbreviation, aa = a?.team?.abbreviation;
+    if (!ha || !aa) continue;
+    map[[ha, aa].sort().join("-")] = {
+      completed: Boolean(e.status?.type?.completed),
+      state: e.status?.type?.state, // pre | in | post
+      score: { [ha]: Number(h.score), [aa]: Number(a.score) },
+      pens: h.shootoutScore != null || a.shootoutScore != null
+        ? { [ha]: Number(h.shootoutScore ?? 0), [aa]: Number(a.shootoutScore ?? 0) }
+        : null,
+      winner: h.winner ? ha : a.winner ? aa : null,
+    };
+  }
+  return map;
+}
+
+// Rewrite one raw fixture's score from the ESPN record (keeps fd's half-time).
+function espnScoreFor(pm, E) {
+  const ht = pm.homeTeam?.tla, at = pm.awayTeam?.tla;
+  const score = {
+    winner: E.winner === ht ? "HOME_TEAM" : E.winner === at ? "AWAY_TEAM" : null,
+    duration: E.pens ? "PENALTY_SHOOTOUT" : "REGULAR",
+    fullTime: { home: E.score[ht], away: E.score[at] },
+    halfTime: pm.score?.halfTime || {},
+  };
+  if (E.pens) score.penalties = { home: E.pens[ht], away: E.pens[at] };
+  return score;
+}
+
+function crossCheck(matches, espn, overrides) {
+  for (const pm of matches) {
+    const ht = pm.homeTeam?.tla, at = pm.awayTeam?.tla;
+    if (!ht || !at) continue; // tie not seeded yet
+    if (overrides[String(pm.id)]) continue; // a human override outranks ESPN
+    const E = espn[[ht, at].sort().join("-")];
+    if (!E) continue; // no counterpart found: fall back to single-source
+    const fdFinal = ["FINISHED", "AWARDED"].includes(pm.status);
+
+    if (fdFinal && E.completed) {
+      // both final: compare goals, shootout and winner; ESPN wins a conflict
+      const fdGoals = (() => {
+        const s = pm.score || {};
+        if (s.penalties) {
+          const rt = s.regularTime || s.fullTime || {}, et = s.extraTime || {};
+          return { home: (rt.home ?? 0) + (et.home ?? 0), away: (rt.away ?? 0) + (et.away ?? 0) };
+        }
+        return { home: s.fullTime?.home, away: s.fullTime?.away };
+      })();
+      const pensDiffer =
+        Boolean(pm.score?.penalties) !== Boolean(E.pens) ||
+        (E.pens && (pm.score.penalties.home !== E.pens[ht] || pm.score.penalties.away !== E.pens[at]));
+      const fdWinnerCode = pm.score?.winner === "HOME_TEAM" ? ht : pm.score?.winner === "AWAY_TEAM" ? at : null;
+      if (fdGoals.home !== E.score[ht] || fdGoals.away !== E.score[at] || pensDiffer || fdWinnerCode !== E.winner) {
+        console.warn(`± cross-check ${ht}v${at}: provider ${fdGoals.home}-${fdGoals.away} disagrees with ESPN ${E.score[ht]}-${E.score[at]}${E.pens ? ` (pens ${E.pens[ht]}-${E.pens[at]})` : ""} — using ESPN`);
+        pm.score = espnScoreFor(pm, E);
+      }
+    } else if (fdFinal && !E.completed) {
+      // provider claims final but ESPN does not confirm: hold as in play
+      console.warn(`± cross-check ${ht}v${at}: provider says FINISHED but ESPN says "${E.state}" — holding until both agree`);
+      pm.status = "IN_PLAY";
+    } else if (!fdFinal && E.completed && E.winner) {
+      // ESPN finished first (provider lagging): promote with ESPN's result
+      console.warn(`± cross-check ${ht}v${at}: ESPN final ${E.score[ht]}-${E.score[at]}, provider still "${pm.status}" — promoting`);
+      pm.status = "FINISHED";
+      pm.score = espnScoreFor(pm, E);
+    }
+  }
+  return matches;
+}
+
 // Manual corrections for wrong provider data (e.g. a VAR-disallowed goal left
 // in the feed). overrides.json maps a provider match id to a patch deep-merged
 // onto the raw fixture BEFORE the bracket is built, so scores, winner and
@@ -278,7 +366,15 @@ async function main() {
     if (!hasPendingMatches(current)) { console.log("· every match is final — nothing left to update"); return false; }
     const token = process.env.FOOTBALL_DATA_TOKEN;
     if (!token) { console.log("· no FOOTBALL_DATA_TOKEN set — nothing to fetch"); return false; }
-    next = buildBracket(applyOverrides(await fetchMatches(token), await loadOverrides()));
+    const matches = await fetchMatches(token);
+    const overrides = await loadOverrides();
+    try {
+      const espn = await fetchEspn(matches);
+      if (espn) crossCheck(matches, espn, overrides);
+    } catch (err) {
+      console.warn(`± cross-check skipped (ESPN unavailable: ${err.message}) — single-source run`);
+    }
+    next = buildBracket(applyOverrides(matches, overrides));
   }
 
   if (fingerprint(current) === fingerprint(next)) { console.log("· no change"); return false; }

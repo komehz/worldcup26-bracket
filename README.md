@@ -59,6 +59,20 @@ kick off. The browser fetches `bracket.json` on its own: when the dev server is
 running it gets an instant push (server sent events), and on a static host it
 falls back to lightweight conditional polling.
 
+### Trust, but verify
+
+Free feeds get results wrong sometimes (a VAR-disallowed goal left in, an
+impossible drawn shootout). Three layers keep the bracket honest:
+
+1. Cross-check: every result is verified against ESPN's public scoreboard
+   (keyless, same team codes). A match only renders as final once both sources
+   agree, and if they disagree on a final score, ESPN wins.
+2. Sanity guard: a knockout tie can never finish without a winner. Impossible
+   provider states are held as undecided instead of rendered.
+3. `overrides.json`: manual corrections, patched onto the raw feed by match id
+   before the bracket is built. A human override outranks both feeds. Delete an
+   entry once the provider corrects itself.
+
 ### Try it with no token
 
 ```bash
