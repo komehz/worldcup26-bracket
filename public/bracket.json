@@ -547,7 +547,7 @@
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "Il'giz Tantashev",
             "nationality": "Uzbekistan"
@@ -1004,5 +1004,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T21:06:19.998Z"
+  "updated_at": "2026-07-04T21:10:37.572Z"
 }
