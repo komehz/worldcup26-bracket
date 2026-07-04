@@ -547,14 +547,14 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Il'giz Tantashev",
             "nationality": "Uzbekistan"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "FRA",
           "kickoff": "2026-07-04T21:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -778,9 +778,8 @@
         {
           "id": "QF-0",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "France",
+            "code": "FRA"
           },
           "teamB": {
             "name": "Morocco",
@@ -1004,5 +1003,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T22:39:27.980Z"
+  "updated_at": "2026-07-04T23:06:18.750Z"
 }
