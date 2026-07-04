@@ -405,13 +405,13 @@
             "name": "Cape Verde Islands",
             "code": "CPV"
           },
-          "scoreA": 2,
+          "scoreA": 3,
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 0,
-          "duration": "REGULAR",
+          "duration": "EXTRA_TIME",
           "providerStatus": "PAUSED",
           "referee": {
             "name": "Drew Fischer",
@@ -1002,5 +1002,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T00:30:42.038Z"
+  "updated_at": "2026-07-04T00:38:16.814Z"
 }
