@@ -576,7 +576,7 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Michael Oliver",
             "nationality": "England"
@@ -1002,5 +1002,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T18:00:50.308Z"
+  "updated_at": "2026-07-04T18:16:21.834Z"
 }
