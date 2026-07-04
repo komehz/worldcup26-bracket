@@ -541,7 +541,7 @@
             "code": "FRA"
           },
           "scoreA": 0,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
@@ -1004,5 +1004,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T22:16:17.133Z"
+  "updated_at": "2026-07-04T22:39:27.980Z"
 }
