@@ -508,7 +508,7 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
@@ -1001,5 +1001,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T02:28:18.101Z"
+  "updated_at": "2026-07-04T02:44:19.862Z"
 }
