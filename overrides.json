@@ -1,0 +1,20 @@
+{
+  "537430": {
+    "note": "Provider shows 2-0; the real result was Colombia 1-0 Ghana (Arias 14') per FIFA's match centre. Delete once the feed corrects.",
+    "patch": {
+      "score": {
+        "winner": "HOME_TEAM",
+        "fullTime": { "home": 1, "away": 0 }
+      }
+    }
+  },
+  "537428": {
+    "note": "Provider shows penalties 4-4 with no winner, which is impossible. Real result: Australia 1-1 Egypt, Egypt won the shootout 4-2 (Sky/ESPN). Delete once the feed corrects.",
+    "patch": {
+      "score": {
+        "winner": "AWAY_TEAM",
+        "penalties": { "home": 2, "away": 4 }
+      }
+    }
+  }
+}

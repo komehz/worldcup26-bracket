@@ -452,21 +452,6 @@ body::before {
   padding-left: clamp(0.4rem, 1.5vw, 1rem);
   border-left: 1px solid var(--line-soft);
 }
-/* Attribution to the designer whose 2D bracket inspired this. */
-.legend__credit {
-  pointer-events: auto; /* .legend is pointer-events:none */
-  font-family: var(--mono);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  color: var(--muted);
-  opacity: 0.7;
-  text-decoration: none;
-  padding-left: clamp(0.4rem, 1.5vw, 1rem);
-  border-left: 1px solid var(--line-soft);
-  transition: color 0.25s var(--ease), opacity 0.25s var(--ease);
-}
-.legend__credit:hover { color: var(--gold); opacity: 1; }
-.legend__credit:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .dot {
   width: 7px; height: 7px;
   border-radius: 50%;

@@ -439,7 +439,7 @@
           },
           "scoreA": 1,
           "scoreB": 1,
-          "penaltiesA": 4,
+          "penaltiesA": 2,
           "penaltiesB": 4,
           "halftimeA": 0,
           "halftimeB": 1,
@@ -450,8 +450,8 @@
             "nationality": "Uruguay"
           },
           "wentToExtraTime": true,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "EGY",
           "kickoff": "2026-07-03T18:00:00Z",
           "feedsInto": {
             "round": "R16",
@@ -501,7 +501,7 @@
             "name": "Ghana",
             "code": "GHA"
           },
-          "scoreA": 2,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -711,9 +711,8 @@
             "code": "ARG"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Egypt",
+            "code": "EGY"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1000,5 +999,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T03:38:17.594Z"
+  "updated_at": "2026-07-04T03:44:28.696Z"
 }

@@ -8,11 +8,6 @@ night" theme), works on mobile, and reads its entire state from one JSON file.
 
 ![World Cup 26 knockout bracket](assets/preview.png)
 
-> Inspired by [Emilio Sansolini](https://www.instagram.com/emiliosansolini/)'s 2D
-> radial World Cup bracket ([the original post](https://www.instagram.com/p/DaJPx6Hkfi1/)).
-> This is an independent, live 3D reinterpretation of that idea — the original
-> concept and artwork are his.
-
 ## Features
 
 - Five ring radial bracket: Round of 32 on the rim through the Final at the
