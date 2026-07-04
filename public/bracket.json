@@ -548,7 +548,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Il'giz Tantashev",
+            "nationality": "Uzbekistan"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1002,5 +1005,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-04T18:52:17.114Z"
+  "updated_at": "2026-07-04T19:00:47.724Z"
 }
