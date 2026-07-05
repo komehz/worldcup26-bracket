@@ -670,7 +670,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Ismail Elfath",
+            "nationality": "United States"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1003,5 +1006,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-05T06:08:20.418Z"
+  "updated_at": "2026-07-05T18:00:48.019Z"
 }
