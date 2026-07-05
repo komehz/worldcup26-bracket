@@ -669,7 +669,7 @@
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "2026-07-05 20:00:00Z",
+          "providerStatus": "2026-07-06 20:00:00Z",
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
@@ -1003,5 +1003,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-05T05:42:19.654Z"
+  "updated_at": "2026-07-05T05:46:18.991Z"
 }
