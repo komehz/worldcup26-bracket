@@ -702,7 +702,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Alireza Faghani",
+            "nationality": "Iran"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1006,5 +1009,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-05T21:58:16.488Z"
+  "updated_at": "2026-07-05T22:00:47.220Z"
 }
