@@ -663,7 +663,7 @@
             "code": "NOR"
           },
           "scoreA": 0,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
@@ -1006,5 +1006,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-05T21:14:19.236Z"
+  "updated_at": "2026-07-05T21:48:19.630Z"
 }
