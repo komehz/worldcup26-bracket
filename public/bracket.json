@@ -701,7 +701,7 @@
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "SCHEDULED",
           "referee": {
             "name": "Alireza Faghani",
             "nationality": "Iran"
@@ -709,7 +709,7 @@
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": "2026-07-06T00:00:00Z",
+          "kickoff": "2026-07-06T01:00:00Z",
           "feedsInto": {
             "round": "QF",
             "match": "QF-2",
@@ -1008,5 +1008,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-05T22:06:19.804Z"
+  "updated_at": "2026-07-05T23:30:38.408Z"
 }
