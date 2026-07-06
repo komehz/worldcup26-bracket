@@ -644,7 +644,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Adham Makhadmeh",
+            "nationality": "Jordan"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1009,5 +1012,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T21:02:22.622Z"
+  "updated_at": "2026-07-06T22:00:56.445Z"
 }
