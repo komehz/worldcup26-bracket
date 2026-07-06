@@ -611,7 +611,7 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Anthony Taylor",
             "nationality": "England"
@@ -1010,5 +1010,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T20:14:18.460Z"
+  "updated_at": "2026-07-06T20:16:18.773Z"
 }
