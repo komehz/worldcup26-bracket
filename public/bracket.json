@@ -701,14 +701,14 @@
           "halftimeA": 1,
           "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Alireza Faghani",
             "nationality": "Iran"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ENG",
           "kickoff": "2026-07-06T01:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -848,9 +848,8 @@
             "code": "NOR"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "England",
+            "code": "ENG"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1008,5 +1007,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T02:36:22.043Z"
+  "updated_at": "2026-07-06T03:06:17.370Z"
 }
