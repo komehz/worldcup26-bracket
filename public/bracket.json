@@ -698,10 +698,10 @@
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 1,
+          "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Alireza Faghani",
             "nationality": "Iran"
@@ -1008,5 +1008,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T01:48:22.804Z"
+  "updated_at": "2026-07-06T01:56:21.010Z"
 }
