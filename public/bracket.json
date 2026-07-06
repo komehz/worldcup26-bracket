@@ -694,20 +694,20 @@
             "name": "England",
             "code": "ENG"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Alireza Faghani",
             "nationality": "Iran"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-06T01:00:00Z",
           "feedsInto": {
@@ -1008,5 +1008,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T01:00:47.431Z"
+  "updated_at": "2026-07-06T01:06:17.921Z"
 }
