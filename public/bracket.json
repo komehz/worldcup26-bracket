@@ -701,7 +701,7 @@
           "halftimeA": 1,
           "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Alireza Faghani",
             "nationality": "Iran"
@@ -1008,5 +1008,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T02:14:17.483Z"
+  "updated_at": "2026-07-06T02:16:18.805Z"
 }
