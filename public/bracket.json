@@ -611,14 +611,14 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Anthony Taylor",
             "nationality": "England"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ESP",
           "kickoff": "2026-07-06T19:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -816,9 +816,8 @@
         {
           "id": "QF-1",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Spain",
+            "code": "ESP"
           },
           "teamB": {
             "name": "To be decided",
@@ -1010,5 +1009,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T20:58:22.380Z"
+  "updated_at": "2026-07-06T21:02:22.622Z"
 }
