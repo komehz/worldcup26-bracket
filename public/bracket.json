@@ -739,7 +739,7 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "François Letexier",
             "nationality": "France"
@@ -1014,5 +1014,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T16:58:19.314Z"
+  "updated_at": "2026-07-07T17:14:18.381Z"
 }
