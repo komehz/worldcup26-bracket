@@ -740,7 +740,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "François Letexier",
+            "nationality": "France"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1011,5 +1014,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T06:08:18.929Z"
+  "updated_at": "2026-07-07T14:00:55.453Z"
 }
