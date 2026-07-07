@@ -766,19 +766,19 @@
           },
           "scoreA": 0,
           "scoreB": 0,
-          "penaltiesA": 3,
+          "penaltiesA": 4,
           "penaltiesB": 3,
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "PENALTY_SHOOTOUT",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Ivan Barton",
             "nationality": null
           },
-          "wentToExtraTime": true,
-          "status": "live",
-          "winner": null,
+          "wentToExtraTime": false,
+          "status": "final",
+          "winner": "SUI",
           "kickoff": "2026-07-07T20:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -887,9 +887,8 @@
             "code": "ARG"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Switzerland",
+            "code": "SUI"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1016,5 +1015,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T22:56:19.523Z"
+  "updated_at": "2026-07-07T22:58:17.833Z"
 }
