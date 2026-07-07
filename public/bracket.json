@@ -640,10 +640,10 @@
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 1,
+          "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Adham Makhadmeh",
             "nationality": "Jordan"
@@ -1012,5 +1012,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T00:38:17.403Z"
+  "updated_at": "2026-07-07T00:58:16.868Z"
 }
