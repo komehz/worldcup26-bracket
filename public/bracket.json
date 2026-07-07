@@ -636,20 +636,20 @@
             "name": "Belgium",
             "code": "BEL"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Adham Makhadmeh",
             "nationality": "Jordan"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-07T00:00:00Z",
           "feedsInto": {
@@ -1012,5 +1012,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-06T22:00:56.445Z"
+  "updated_at": "2026-07-07T00:06:17.326Z"
 }
