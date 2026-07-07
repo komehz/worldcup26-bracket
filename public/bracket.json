@@ -739,14 +739,14 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "François Letexier",
             "nationality": "France"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ARG",
           "kickoff": "2026-07-07T16:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -883,9 +883,8 @@
         {
           "id": "QF-3",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Argentina",
+            "code": "ARG"
           },
           "teamB": {
             "name": "To be decided",
@@ -1017,5 +1016,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T18:02:18.228Z"
+  "updated_at": "2026-07-07T18:06:20.356Z"
 }
