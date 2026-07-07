@@ -766,12 +766,12 @@
           },
           "scoreA": 0,
           "scoreB": 0,
-          "penaltiesA": null,
-          "penaltiesB": null,
+          "penaltiesA": 0,
+          "penaltiesB": 0,
           "halftimeA": 0,
           "halftimeB": 0,
-          "duration": "EXTRA_TIME",
-          "providerStatus": "PAUSED",
+          "duration": "PENALTY_SHOOTOUT",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Ivan Barton",
             "nationality": null
@@ -1016,5 +1016,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T22:40:37.598Z"
+  "updated_at": "2026-07-07T22:46:23.764Z"
 }
