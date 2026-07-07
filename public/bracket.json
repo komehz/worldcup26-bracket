@@ -732,7 +732,7 @@
             "name": "Egypt",
             "code": "EGY"
           },
-          "scoreA": 2,
+          "scoreA": 3,
           "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1017,5 +1017,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T18:00:51.096Z"
+  "updated_at": "2026-07-07T18:02:18.228Z"
 }
