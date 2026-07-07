@@ -637,7 +637,7 @@
             "code": "BEL"
           },
           "scoreA": 1,
-          "scoreB": 2,
+          "scoreB": 3,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
@@ -1012,5 +1012,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T01:16:17.617Z"
+  "updated_at": "2026-07-07T01:26:17.832Z"
 }
