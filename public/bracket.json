@@ -770,13 +770,13 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 0,
-          "duration": "REGULAR",
+          "duration": "EXTRA_TIME",
           "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Ivan Barton",
             "nationality": null
           },
-          "wentToExtraTime": false,
+          "wentToExtraTime": true,
           "status": "live",
           "winner": null,
           "kickoff": "2026-07-07T20:00:00Z",
@@ -1016,5 +1016,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T22:24:24.499Z"
+  "updated_at": "2026-07-07T22:26:22.255Z"
 }
