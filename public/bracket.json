@@ -733,7 +733,7 @@
             "code": "EGY"
           },
           "scoreA": 0,
-          "scoreB": 1,
+          "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
@@ -1014,5 +1014,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T17:16:19.859Z"
+  "updated_at": "2026-07-07T17:28:19.981Z"
 }
