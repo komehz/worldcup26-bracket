@@ -736,10 +736,10 @@
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 0,
+          "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "François Letexier",
             "nationality": "France"
@@ -1014,5 +1014,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T16:22:22.380Z"
+  "updated_at": "2026-07-07T16:58:19.314Z"
 }
