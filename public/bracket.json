@@ -637,20 +637,20 @@
             "code": "BEL"
           },
           "scoreA": 1,
-          "scoreB": 3,
+          "scoreB": 4,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Adham Makhadmeh",
             "nationality": "Jordan"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "BEL",
           "kickoff": "2026-07-07T00:00:00Z",
           "feedsInto": {
             "round": "QF",
@@ -823,9 +823,8 @@
             "code": "ESP"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Belgium",
+            "code": "BEL"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1012,5 +1011,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T01:26:17.832Z"
+  "updated_at": "2026-07-07T02:00:47.075Z"
 }
