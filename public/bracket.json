@@ -643,7 +643,7 @@
           "halftimeA": 1,
           "halftimeB": 2,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "Adham Makhadmeh",
             "nationality": "Jordan"
@@ -1012,5 +1012,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T00:58:16.868Z"
+  "updated_at": "2026-07-07T01:14:22.148Z"
 }
