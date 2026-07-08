@@ -776,7 +776,7 @@
             "name": "Ivan Barton",
             "nationality": null
           },
-          "wentToExtraTime": false,
+          "wentToExtraTime": true,
           "status": "final",
           "winner": "SUI",
           "kickoff": "2026-07-07T20:00:00Z",
@@ -896,13 +896,13 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": null,
-          "providerStatus": null,
+          "duration": "REGULAR",
+          "providerStatus": "TIMED",
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": null,
+          "kickoff": "2026-07-12T01:00:00Z",
           "feedsInto": {
             "round": "SF",
             "match": "SF-1",
@@ -1015,5 +1015,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-07T22:58:17.833Z"
+  "updated_at": "2026-07-08T06:14:18.790Z"
 }
