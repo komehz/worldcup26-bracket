@@ -811,7 +811,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Facundo Tello",
+            "nationality": "Argentina"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1015,5 +1018,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-08T06:14:18.790Z"
+  "updated_at": "2026-07-09T18:00:52.487Z"
 }
