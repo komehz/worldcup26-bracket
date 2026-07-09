@@ -810,7 +810,7 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Facundo Tello",
             "nationality": "Argentina"
@@ -1018,5 +1018,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-09T20:56:20.172Z"
+  "updated_at": "2026-07-09T21:16:23.184Z"
 }
