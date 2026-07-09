@@ -803,20 +803,20 @@
             "name": "Morocco",
             "code": "MAR"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Facundo Tello",
             "nationality": "Argentina"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-09T20:00:00Z",
           "feedsInto": {
@@ -1018,5 +1018,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-09T18:00:52.487Z"
+  "updated_at": "2026-07-09T20:06:22.145Z"
 }
