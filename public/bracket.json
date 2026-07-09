@@ -810,14 +810,14 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Facundo Tello",
             "nationality": "Argentina"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "FRA",
           "kickoff": "2026-07-09T20:00:00Z",
           "feedsInto": {
             "round": "SF",
@@ -922,9 +922,8 @@
         {
           "id": "SF-0",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "France",
+            "code": "FRA"
           },
           "teamB": {
             "name": "To be decided",
@@ -1018,5 +1017,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-09T21:36:18.583Z"
+  "updated_at": "2026-07-09T22:02:20.013Z"
 }
