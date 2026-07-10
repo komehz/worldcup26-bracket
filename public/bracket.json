@@ -835,7 +835,7 @@
             "name": "Belgium",
             "code": "BEL"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1020,5 +1020,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-10T19:06:23.770Z"
+  "updated_at": "2026-07-10T19:38:27.018Z"
 }
