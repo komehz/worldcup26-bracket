@@ -842,14 +842,14 @@
           "halftimeA": 1,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Michael Oliver",
             "nationality": "England"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ESP",
           "kickoff": "2026-07-10T19:00:00Z",
           "feedsInto": {
             "round": "SF",
@@ -929,9 +929,8 @@
             "code": "FRA"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Spain",
+            "code": "ESP"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1020,5 +1019,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-10T20:56:21.700Z"
+  "updated_at": "2026-07-10T21:01:00.584Z"
 }
