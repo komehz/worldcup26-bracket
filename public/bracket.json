@@ -835,20 +835,20 @@
             "name": "Belgium",
             "code": "BEL"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Michael Oliver",
             "nationality": "England"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-10T19:00:00Z",
           "feedsInto": {
@@ -1020,5 +1020,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-10T17:00:50.685Z"
+  "updated_at": "2026-07-10T19:06:23.770Z"
 }
