@@ -867,7 +867,7 @@
             "name": "England",
             "code": "ENG"
           },
-          "scoreA": 1,
+          "scoreA": 2,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1022,5 +1022,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T22:14:19.000Z"
+  "updated_at": "2026-07-11T22:24:21.247Z"
 }
