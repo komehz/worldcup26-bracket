@@ -907,7 +907,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "João Pinheiro",
+            "nationality": "Portugal"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1022,5 +1025,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T22:24:21.247Z"
+  "updated_at": "2026-07-11T23:00:54.378Z"
 }
