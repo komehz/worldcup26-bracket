@@ -868,7 +868,7 @@
             "code": "ENG"
           },
           "scoreA": 1,
-          "scoreB": 1,
+          "scoreB": 2,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
@@ -1025,5 +1025,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T23:14:20.303Z"
+  "updated_at": "2026-07-11T23:16:19.537Z"
 }
