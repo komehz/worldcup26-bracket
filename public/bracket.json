@@ -867,14 +867,14 @@
             "name": "England",
             "code": "ENG"
           },
-          "scoreA": 2,
+          "scoreA": 1,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
@@ -1025,5 +1025,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T23:00:54.378Z"
+  "updated_at": "2026-07-11T23:08:25.822Z"
 }
