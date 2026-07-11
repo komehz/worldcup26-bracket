@@ -873,15 +873,15 @@
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 1,
-          "duration": "EXTRA_TIME",
-          "providerStatus": "PAUSED",
+          "duration": "REGULAR",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
           },
-          "wentToExtraTime": true,
-          "status": "live",
-          "winner": null,
+          "wentToExtraTime": false,
+          "status": "final",
+          "winner": "ENG",
           "kickoff": "2026-07-11T21:00:00Z",
           "feedsInto": {
             "round": "SF",
@@ -960,9 +960,8 @@
         {
           "id": "SF-1",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "England",
+            "code": "ENG"
           },
           "teamB": {
             "name": "To be decided",
@@ -1025,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T23:32:27.239Z"
+  "updated_at": "2026-07-11T23:48:21.065Z"
 }
