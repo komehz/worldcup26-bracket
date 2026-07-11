@@ -867,20 +867,20 @@
             "name": "England",
             "code": "ENG"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-11T21:00:00Z",
           "feedsInto": {
@@ -1022,5 +1022,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T19:00:53.979Z"
+  "updated_at": "2026-07-11T21:06:20.423Z"
 }
