@@ -873,13 +873,13 @@
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 1,
-          "duration": "REGULAR",
-          "providerStatus": "PAUSED",
+          "duration": "EXTRA_TIME",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Clément Turpin",
             "nationality": "France"
           },
-          "wentToExtraTime": false,
+          "wentToExtraTime": true,
           "status": "live",
           "winner": null,
           "kickoff": "2026-07-11T21:00:00Z",
@@ -1025,5 +1025,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T23:08:25.822Z"
+  "updated_at": "2026-07-11T23:14:20.303Z"
 }
