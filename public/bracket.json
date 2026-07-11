@@ -868,11 +868,11 @@
             "code": "ENG"
           },
           "scoreA": 1,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 0,
+          "halftimeB": 0,
           "duration": "REGULAR",
           "providerStatus": "IN_PLAY",
           "referee": {
@@ -1022,5 +1022,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T21:42:18.672Z"
+  "updated_at": "2026-07-11T21:54:19.032Z"
 }
