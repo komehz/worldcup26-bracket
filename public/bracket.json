@@ -875,7 +875,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Clément Turpin",
+            "nationality": "France"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1019,5 +1022,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T06:14:18.933Z"
+  "updated_at": "2026-07-11T19:00:53.979Z"
 }
