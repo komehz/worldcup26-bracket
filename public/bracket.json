@@ -905,13 +905,13 @@
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 0,
-          "duration": "REGULAR",
+          "duration": "EXTRA_TIME",
           "providerStatus": "PAUSED",
           "referee": {
             "name": "João Pinheiro",
             "nationality": "Portugal"
           },
-          "wentToExtraTime": false,
+          "wentToExtraTime": true,
           "status": "live",
           "winner": null,
           "kickoff": "2026-07-12T01:00:00Z",
@@ -1024,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T03:10:35.254Z"
+  "updated_at": "2026-07-12T03:12:18.467Z"
 }
