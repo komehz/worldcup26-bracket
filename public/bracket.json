@@ -973,13 +973,13 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": null,
-          "providerStatus": null,
+          "duration": "REGULAR",
+          "providerStatus": "TIMED",
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": null,
+          "kickoff": "2026-07-15T19:00:00Z",
           "feedsInto": {
             "round": "FINAL",
             "match": "FINAL-0",
@@ -1023,5 +1023,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T03:52:19.073Z"
+  "updated_at": "2026-07-12T06:08:19.877Z"
 }
