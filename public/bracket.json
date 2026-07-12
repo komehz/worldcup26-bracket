@@ -899,21 +899,21 @@
             "name": "Switzerland",
             "code": "SUI"
           },
-          "scoreA": 2,
+          "scoreA": 3,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 1,
           "halftimeB": 0,
-          "duration": "EXTRA_TIME",
-          "providerStatus": "IN_PLAY",
+          "duration": "REGULAR",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "João Pinheiro",
             "nationality": "Portugal"
           },
-          "wentToExtraTime": true,
-          "status": "live",
-          "winner": null,
+          "wentToExtraTime": false,
+          "status": "final",
+          "winner": "ARG",
           "kickoff": "2026-07-12T01:00:00Z",
           "feedsInto": {
             "round": "SF",
@@ -964,9 +964,8 @@
             "code": "ENG"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Argentina",
+            "code": "ARG"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1024,5 +1023,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T03:40:43.212Z"
+  "updated_at": "2026-07-12T03:46:19.036Z"
 }
