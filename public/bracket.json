@@ -903,10 +903,10 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 1,
+          "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "João Pinheiro",
             "nationality": "Portugal"
@@ -1024,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T01:18:22.097Z"
+  "updated_at": "2026-07-12T01:58:18.074Z"
 }
