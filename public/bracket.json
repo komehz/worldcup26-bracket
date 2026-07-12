@@ -899,7 +899,7 @@
             "name": "Switzerland",
             "code": "SUI"
           },
-          "scoreA": 1,
+          "scoreA": 2,
           "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1024,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T03:32:19.469Z"
+  "updated_at": "2026-07-12T03:40:43.212Z"
 }
