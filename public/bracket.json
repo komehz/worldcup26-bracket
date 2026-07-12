@@ -899,20 +899,20 @@
             "name": "Switzerland",
             "code": "SUI"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "João Pinheiro",
             "nationality": "Portugal"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-12T01:00:00Z",
           "feedsInto": {
@@ -1024,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-11T23:54:23.275Z"
+  "updated_at": "2026-07-12T01:06:19.334Z"
 }
