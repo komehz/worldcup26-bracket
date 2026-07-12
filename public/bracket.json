@@ -906,7 +906,7 @@
           "halftimeA": 1,
           "halftimeB": 0,
           "duration": "EXTRA_TIME",
-          "providerStatus": "PAUSED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "João Pinheiro",
             "nationality": "Portugal"
@@ -1024,5 +1024,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-12T03:12:18.467Z"
+  "updated_at": "2026-07-12T03:32:19.469Z"
 }
