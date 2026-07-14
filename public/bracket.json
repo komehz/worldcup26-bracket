@@ -939,7 +939,7 @@
             "code": "ESP"
           },
           "scoreA": 0,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
@@ -1026,5 +1026,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-14T19:06:20.822Z"
+  "updated_at": "2026-07-14T19:28:20.690Z"
 }
