@@ -945,7 +945,7 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Ivan Barton",
             "nationality": null
@@ -1026,5 +1026,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-14T20:12:19.575Z"
+  "updated_at": "2026-07-14T20:14:21.752Z"
 }
