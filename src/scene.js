@@ -316,7 +316,10 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
   bannerTex.colorSpace = THREE.SRGBColorSpace;
   const banner = new THREE.Sprite(new THREE.SpriteMaterial({ map: bannerTex, transparent: true, depthWrite: false }));
   banner.scale.set(2.6, 1.4625, 1); // matches the 512x288 canvas aspect
-  banner.position.y = ringHeight(4) + 0.74; // beneath the floating trophy, above the core ring
+  // Fully below the trophy: the trophy mesh reaches ~1.31 below its anchor
+  // (ringHeight(4) + 1.7) and bobs another 0.12, so its lowest point is
+  // ~ringHeight(4) + 0.27. Keep the banner's top edge under that.
+  banner.position.y = ringHeight(4) - 0.6;
   banner.visible = false;
   tiltGroup.add(banner);
   let champion = null; // { name, code } of the final's winner
