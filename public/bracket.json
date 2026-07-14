@@ -945,14 +945,14 @@
           "halftimeA": 0,
           "halftimeB": 1,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Ivan Barton",
             "nationality": null
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ESP",
           "kickoff": "2026-07-14T19:00:00Z",
           "feedsInto": {
             "round": "FINAL",
@@ -999,9 +999,8 @@
         {
           "id": "FINAL-0",
           "teamA": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Spain",
+            "code": "ESP"
           },
           "teamB": {
             "name": "To be decided",
@@ -1026,5 +1025,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-14T20:26:18.218Z"
+  "updated_at": "2026-07-14T21:04:19.603Z"
 }
