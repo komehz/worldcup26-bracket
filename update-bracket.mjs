@@ -311,9 +311,12 @@ function simulateTick(data) {
   const matches = data.rounds.flatMap((r) => r.matches);
   const live = matches.filter((m) => m.status === "live");
   if (!live.length) {
+    // Ties seeded by the simulation itself have no kickoff yet, so kickoff is a
+    // sort preference, not a requirement — otherwise the demo stalls once it
+    // advances past the fixtures the provider had scheduled.
     const next = matches
-      .filter((m) => m.status === "scheduled" && m.teamA?.code && m.teamB?.code && m.kickoff)
-      .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff))[0];
+      .filter((m) => m.status === "scheduled" && m.teamA?.code && m.teamB?.code)
+      .sort((a, b) => new Date(a.kickoff || "2100-01-01") - new Date(b.kickoff || "2100-01-01"))[0];
     if (next) { next.status = "live"; next.scoreA = 0; next.scoreB = 0; }
     return;
   }
@@ -379,7 +382,10 @@ async function main() {
   let next;
 
   if (DEMO) {
-    next = current;
+    // Mutate a fresh copy: `next = current` made the fingerprint compare an
+    // object against itself, so demo ticks always read as "no change" and
+    // nothing was ever written.
+    next = JSON.parse(before);
     simulateTick(next);
     resolveAdvancement(next);
   } else {
