@@ -307,6 +307,70 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
   trophy.position.y = ringHeight(4) + 1.7;
   tiltGroup.add(trophy);
 
+  // Champion banner: once the final is decided, the winner's flag and the word
+  // CHAMPIONS float beneath the trophy so the outcome is stated, not inferred.
+  // A sprite always faces the camera, so the spin never turns it away.
+  const bannerCanvas = document.createElement("canvas");
+  bannerCanvas.width = 512; bannerCanvas.height = 288;
+  const bannerTex = new THREE.CanvasTexture(bannerCanvas);
+  bannerTex.colorSpace = THREE.SRGBColorSpace;
+  const banner = new THREE.Sprite(new THREE.SpriteMaterial({ map: bannerTex, transparent: true, depthWrite: false }));
+  banner.scale.set(2.6, 1.4625, 1); // matches the 512x288 canvas aspect
+  banner.position.y = ringHeight(4) + 0.74; // beneath the floating trophy, above the core ring
+  banner.visible = false;
+  tiltGroup.add(banner);
+  let champion = null; // { name, code } of the final's winner
+  let championFlag = null;
+
+  function drawChampionBanner() {
+    const ctx = bannerCanvas.getContext("2d");
+    const W = bannerCanvas.width, H = bannerCanvas.height;
+    ctx.clearRect(0, 0, W, H);
+    if (champion) {
+      const C = T.card;
+      const fw = 168, fh = 112, fx = (W - fw) / 2, fy = 12;
+      if (championFlag) {
+        const s = Math.max(fw / championFlag.width, fh / championFlag.height);
+        ctx.save();
+        ctx.beginPath(); ctx.rect(fx, fy, fw, fh); ctx.clip();
+        ctx.drawImage(championFlag, fx + (fw - championFlag.width * s) / 2, fy + (fh - championFlag.height * s) / 2,
+          championFlag.width * s, championFlag.height * s);
+        ctx.restore();
+      } else {
+        ctx.fillStyle = C.noFlag; ctx.fillRect(fx, fy, fw, fh);
+      }
+      ctx.strokeStyle = C.dashed; ctx.lineWidth = 2; ctx.strokeRect(fx, fy, fw, fh);
+      ctx.textAlign = "center"; ctx.textBaseline = "top";
+      ctx.fillStyle = C.winnerInk;
+      ctx.font = "700 32px Inter, sans-serif";
+      ctx.fillText("C H A M P I O N S", W / 2, fy + fh + 24);
+      ctx.fillStyle = C.ink;
+      ctx.font = "600 40px Inter, sans-serif";
+      ctx.fillText(champion.name, W / 2, fy + fh + 74);
+    }
+    bannerTex.needsUpdate = true;
+  }
+
+  function updateChampion(data) {
+    const finalRound = data.rounds[data.rounds.length - 1];
+    const fm = finalRound?.matches?.[0];
+    const prevCode = champion?.code;
+    if (fm && fm.status === "final" && fm.winner) {
+      const w = fm.teamA?.code === fm.winner ? fm.teamA : fm.teamB;
+      champion = { name: w.name, code: w.code };
+      if (champion.code !== prevCode) {
+        championFlag = null;
+        const cached = loadFlag(flagUrl(champion.code), (img) => { championFlag = img; drawChampionBanner(); });
+        if (cached) championFlag = cached;
+      }
+    } else {
+      champion = null;
+      championFlag = null;
+    }
+    banner.visible = Boolean(champion);
+    drawChampionBanner();
+  }
+
   // beams + cards live here
   const beamGroup = new THREE.Group();
   tiltGroup.add(beamGroup);
@@ -573,6 +637,9 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
         if (match && match.winner && match.feedsInto) playAdvance(round, match);
       });
     }
+
+    // crown the winner once the final is decided
+    updateChampion(data);
 
     // on first load, spin so a match being played today faces the viewer
     if (isFirst) faceTodayMatch(data);
@@ -843,6 +910,7 @@ export function createScene(canvas, { onHover, onSelect, onReady } = {}) {
       card.frameMat.color.setHex(frameColorFor(card.state));
       if (card.model) redraw(card);
     }
+    drawChampionBanner(); // banner text/ink colours follow the theme
   }
 
   // ---- resize ----
