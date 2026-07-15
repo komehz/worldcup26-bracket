@@ -970,7 +970,7 @@
             "name": "Argentina",
             "code": "ARG"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
@@ -1028,5 +1028,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T20:12:18.062Z"
+  "updated_at": "2026-07-15T20:22:19.688Z"
 }
