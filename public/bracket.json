@@ -977,14 +977,14 @@
           "halftimeA": 0,
           "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Ismail Elfath",
             "nationality": "United States"
           },
           "wentToExtraTime": false,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ARG",
           "kickoff": "2026-07-15T19:00:00Z",
           "feedsInto": {
             "round": "FINAL",
@@ -1006,9 +1006,8 @@
             "code": "ESP"
           },
           "teamB": {
-            "name": "To be decided",
-            "code": null,
-            "placeholder": true
+            "name": "Argentina",
+            "code": "ARG"
           },
           "scoreA": null,
           "scoreB": null,
@@ -1028,5 +1027,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T20:58:18.620Z"
+  "updated_at": "2026-07-15T21:10:45.387Z"
 }
