@@ -970,20 +970,20 @@
             "name": "Argentina",
             "code": "ARG"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Ismail Elfath",
             "nationality": "United States"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-15T19:00:00Z",
           "feedsInto": {
@@ -1028,5 +1028,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T17:01:00.532Z"
+  "updated_at": "2026-07-15T19:06:19.392Z"
 }
