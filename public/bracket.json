@@ -974,10 +974,10 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 0,
+          "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Ismail Elfath",
             "nationality": "United States"
@@ -1028,5 +1028,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T19:06:19.392Z"
+  "updated_at": "2026-07-15T19:56:20.496Z"
 }
