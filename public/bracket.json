@@ -971,7 +971,7 @@
             "code": "ARG"
           },
           "scoreA": 1,
-          "scoreB": 0,
+          "scoreB": 1,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
@@ -1028,5 +1028,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T20:22:19.688Z"
+  "updated_at": "2026-07-15T20:52:21.625Z"
 }
