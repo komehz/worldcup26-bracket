@@ -54,11 +54,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Cutoff = 00:00 UTC the day after the last kickoff in the data.
-          CUTOFF=$(node -e "const d=require('./public/bracket.json');const ks=d.rounds.flatMap(r=>r.matches).map(m=>m.kickoff).filter(Boolean).map(s=>Date.parse(s));const c=new Date(Math.max(...ks));console.log(Date.UTC(c.getUTCFullYear(),c.getUTCMonth(),c.getUTCDate()+1,0,0,0))")
+          # Disable only once the tournament is truly over: EVERY match final,
+          # and past 00:00 UTC the day after the last kickoff. Dates alone are
+          # not enough: an unseeded tie (e.g. the final before the semis wrap)
+          # has no kickoff, so the max-kickoff cutoff once fired 4 days early
+          # and shut the pipeline down mid-tournament.
+          CUTOFF=$(node -e "const d=require('./public/bracket.json');const ms=d.rounds.flatMap(r=>r.matches);if(!ms.length||ms.some(m=>m.status!=='final')){console.log('999999999999999');process.exit(0)}const ks=ms.map(m=>m.kickoff).filter(Boolean).map(s=>Date.parse(s));const c=new Date(Math.max(...ks));console.log(Date.UTC(c.getUTCFullYear(),c.getUTCMonth(),c.getUTCDate()+1,0,0,0))")
           NOW=$(date -u +%s%3N)
           echo "now    = $(date -u)"
-          echo "cutoff = $(date -u -d @$((CUTOFF/1000)))"
+          echo "cutoff = $(date -u -d @$((CUTOFF/1000)) 2>/dev/null || echo 'tournament still in progress')"
           if [ "$NOW" -ge "$CUTOFF" ]; then
             echo "Tournament over — disabling this workflow."
             gh workflow disable "${{ github.workflow }}" --repo "$GITHUB_REPOSITORY" \
