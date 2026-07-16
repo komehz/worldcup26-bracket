@@ -1015,17 +1015,17 @@
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
-          "duration": null,
-          "providerStatus": null,
+          "duration": "REGULAR",
+          "providerStatus": "TIMED",
           "referee": null,
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
-          "kickoff": null,
+          "kickoff": "2026-07-19T19:00:00Z",
           "feedsInto": null
         }
       ]
     }
   ],
-  "updated_at": "2026-07-15T21:10:45.387Z"
+  "updated_at": "2026-07-16T06:10:43.536Z"
 }
