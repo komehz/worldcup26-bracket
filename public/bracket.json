@@ -1009,14 +1009,14 @@
             "name": "Argentina",
             "code": "ARG"
           },
-          "scoreA": 0,
+          "scoreA": 1,
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 0,
-          "duration": "EXTRA_TIME",
-          "providerStatus": "PAUSED",
+          "duration": "REGULAR",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "Slavko Vinčič",
             "nationality": "Slovenia"
@@ -1030,5 +1030,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-19T21:44:26.203Z"
+  "updated_at": "2026-07-19T21:48:24.546Z"
 }
