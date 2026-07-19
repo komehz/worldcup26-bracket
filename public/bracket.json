@@ -1013,10 +1013,10 @@
           "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
-          "halftimeA": null,
-          "halftimeB": null,
+          "halftimeA": 0,
+          "halftimeB": 0,
           "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "providerStatus": "PAUSED",
           "referee": {
             "name": "Slavko Vinčič",
             "nationality": "Slovenia"
@@ -1030,5 +1030,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-19T19:12:26.303Z"
+  "updated_at": "2026-07-19T20:00:44.105Z"
 }
