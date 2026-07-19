@@ -1016,7 +1016,7 @@
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "IN_PLAY",
+          "providerStatus": "LIVE",
           "referee": {
             "name": "Slavko Vinčič",
             "nationality": "Slovenia"
@@ -1030,5 +1030,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-19T19:06:20.715Z"
+  "updated_at": "2026-07-19T19:12:26.303Z"
 }
