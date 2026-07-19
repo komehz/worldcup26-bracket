@@ -1017,7 +1017,10 @@
           "halftimeB": null,
           "duration": "REGULAR",
           "providerStatus": "TIMED",
-          "referee": null,
+          "referee": {
+            "name": "Slavko Vinčič",
+            "nationality": "Slovenia"
+          },
           "wentToExtraTime": false,
           "status": "scheduled",
           "winner": null,
@@ -1027,5 +1030,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-16T06:10:43.536Z"
+  "updated_at": "2026-07-19T17:00:45.317Z"
 }
