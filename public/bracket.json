@@ -1015,20 +1015,20 @@
           "penaltiesB": null,
           "halftimeA": 0,
           "halftimeB": 0,
-          "duration": "REGULAR",
-          "providerStatus": "LIVE",
+          "duration": "EXTRA_TIME",
+          "providerStatus": "FINISHED",
           "referee": {
             "name": "Slavko Vinčič",
             "nationality": "Slovenia"
           },
           "wentToExtraTime": true,
-          "status": "live",
-          "winner": null,
+          "status": "final",
+          "winner": "ESP",
           "kickoff": "2026-07-19T19:00:00Z",
           "feedsInto": null
         }
       ]
     }
   ],
-  "updated_at": "2026-07-19T21:48:24.546Z"
+  "updated_at": "2026-07-19T22:08:21.906Z"
 }
