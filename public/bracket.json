@@ -1009,20 +1009,20 @@
             "name": "Argentina",
             "code": "ARG"
           },
-          "scoreA": null,
-          "scoreB": null,
+          "scoreA": 0,
+          "scoreB": 0,
           "penaltiesA": null,
           "penaltiesB": null,
           "halftimeA": null,
           "halftimeB": null,
           "duration": "REGULAR",
-          "providerStatus": "TIMED",
+          "providerStatus": "IN_PLAY",
           "referee": {
             "name": "Slavko Vinčič",
             "nationality": "Slovenia"
           },
           "wentToExtraTime": false,
-          "status": "scheduled",
+          "status": "live",
           "winner": null,
           "kickoff": "2026-07-19T19:00:00Z",
           "feedsInto": null
@@ -1030,5 +1030,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-19T17:00:45.317Z"
+  "updated_at": "2026-07-19T19:06:20.715Z"
 }
